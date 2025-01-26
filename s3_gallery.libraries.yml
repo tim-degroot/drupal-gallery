@@ -1,5 +1,5 @@
 fslightbox:
-  version: 1.x
+  version: 3.4.2
   js:
     js/fslightbox.js: {}
   dependencies:
