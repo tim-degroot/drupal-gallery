@@ -163,7 +163,7 @@ class GalleryController extends ControllerBase {
             }
       // $output .= "</ul>";
       $output .= "<script src=\"fslightbox.js\"></script>";
-      $output .= "fslightbox"
+      $output .= "fslightbox";
 
       // Return the output as a renderable array
       return [
