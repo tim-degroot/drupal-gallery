@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Aws\S3\S3Client;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Site\Settings; // Add this line
 
 /**
  * Provides route responses for the S3 Gallery module.
@@ -35,11 +36,11 @@ class GalleryController extends ControllerBase {
    */
   public function myPage() {
     try {
-      // Initialize S3 client
+      // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
       $s3 = new S3Client([
         'version' => 'latest',
-        'region' => 'eu-central-1', // Change to your bucket's region
+        'region' => $config['region'],
         'credentials' => [
           'key'    => $config['key'],
           'secret' => $config['secret'],
