@@ -151,16 +151,18 @@ class GalleryController extends ControllerBase {
       $output .= "</ul>";
 
       $output .= "<h3>The contents of your bucket are:</h3>:";
-      $output .= "<ul>";
+      // $output .= "<ul>";
       
       if (isset($contents['Contents'])) {
         foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
           $url = $s3->getObjectUrl($bucket, $key);
           $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
+          $output .= "<a data-fslightbox=\"gallery\" href=\"$url\"></a>"
               }
             }
-      $output .= "</ul>";
+      // $output .= "</ul>";
+      $output .= "<script src=\"fslightbox.js\"></script>";
 
       // Return the output as a renderable array
       return [
