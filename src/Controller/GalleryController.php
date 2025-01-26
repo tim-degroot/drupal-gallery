@@ -53,6 +53,11 @@ class GalleryController extends ControllerBase {
         $output .= $content['Key'] . "<br>";
       }
 
+      $output .= "The CommonPrefixes are: <br>";
+      foreach ($contents['CommonPrefixes'] as $commonPrefix) {
+        $output .= $commonPrefix . "<br>"
+      }
+
       // Return the output as a renderable array
       return [
         '#markup' => $output,
