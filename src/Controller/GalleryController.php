@@ -46,18 +46,21 @@ class GalleryController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      $output .= "The contents of your bucket are: \n";
-            foreach ($contents['Contents'] as $content) {
-                $output .= $content['Key'] . "\n";
-            }
+      $output .= "The contents of your bucket are: <br>";
+      foreach ($contents['Contents'] as $content) {
+        $output .= $content['Key'] . "<br>";
+      }
 
-      echo $output;
-      return [];
+      // Return the output as a renderable array
+      return [
+        '#markup' => $output,
+      ];
     } catch (\Exception $e) {
       // Debugging information
       \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);
-      echo "Error: " . $e->getMessage();
-      return [];
+      return [
+        '#markup' => "Error: " . $e->getMessage(),
+      ];
     }
   }
 }
