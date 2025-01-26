@@ -157,11 +157,25 @@ class GalleryController extends ControllerBase {
         foreach ($contents['Contents'] as $content) {
           $output .= implode(' > ', $content);
           $key = htmlspecialchars($content['Key']);
-          $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key' => $key]);
-          $request = $s3->createPresignedRequest($cmd, '+72 hour');
-          $url = (string) $request->getUri();
-          $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";        }
-      }
+          $url = $s3->getObjectUrl(['Bucket' => $bucket,'Key' => $key])
+          // $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key' => $key]);
+          // $request = $s3->createPresignedRequest($cmd, '+72 hour');
+          // $url = (string) $request->getUri();
+          $output .= "<li><img id=\"$key\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
+          $output .= "<script>
+              fetch('https://XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/image.jpg', {
+                  headers: {
+                      'Referer': 'https://acdweb.nl'
+                  }
+              })
+              .then(response => response.blob())
+              .then(blob => {
+                  const url = URL.createObjectURL(blob);
+                  document.getElementById('$key').src = url;
+              })
+              .catch(error => console.error('Error fetching image:', error));
+          </script>";
+              }
       $output .= "</ul>";
 
       // Return the output as a renderable array
