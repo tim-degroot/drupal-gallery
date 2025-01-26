@@ -36,7 +36,7 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'photos/' . $prefix; // Ensure 'photos/' is prefixed
+      $prefix = 'photos/' . $prefix; // Ensure 'photos/' is prefixed and spaces are encoded
 
       // Debugging information
       \Drupal::logger('s3_gallery')->debug('Listing objects with prefix: @prefix', ['@prefix' => $prefix]);
@@ -52,20 +52,36 @@ class GalleryController extends ControllerBase {
       \Drupal::logger('s3_gallery')->debug('Objects found: @objects', ['@objects' => print_r($objects, TRUE)]);
 
       $output = '';
-      if (isset($objects['Contents'])) {
-        $output .= "<div class='gallery-urls'>";
-        foreach ($objects['Contents'] as $object) {
-          $key = $object['Key'];
-          if (substr($key, -1) !== '/') { // Check if it's not a folder
-            $url = $s3->getObjectUrl($bucket, $key);
-            $output .= "<div class='gallery-url'>";
-            $output .= "<a href='{$url}'>{$key}</a>";
+      if (isset($objects['CommonPrefixes']) || isset($objects['Contents'])) {
+        $output .= "<div class='gallery'>";
+
+        if (isset($objects['CommonPrefixes'])) {
+          foreach ($objects['CommonPrefixes'] as $commonPrefix) {
+            $folderName = rtrim($commonPrefix['Prefix'], '/');
+            $folderUrl = Url::fromRoute('s3_gallery.my_page', ['prefix' => str_replace('photos/', '', $folderName) . '/'])->toString();
+            $output .= "<div class='gallery-item'>";
+            $output .= "<a href='{$folderUrl}'>{$folderName}</a>";
             $output .= "</div>";
           }
         }
+
+        if (isset($objects['Contents'])) {
+          foreach ($objects['Contents'] as $object) {
+            $key = $object['Key'];
+            if (substr($key, -1) !== '/') { // Check if it's not a folder
+              $url = $s3->getObjectUrl($bucket, $key);
+              $output .= "<div class='gallery-item'>";
+              $output .= "<a href='{$url}'>{$key}</a>";
+              $output .= "</div>";
+            }
+          }
+        }
+
         $output .= "</div>";
       } else {
-        $output .= "No images found in '{$prefix}'.";
+        $output .= "No images or folders found in '{$prefix}'.";
+        // Additional debugging information
+        \Drupal::logger('s3_gallery')->debug('No contents found in the specified prefix.');
       }
 
       // Debugging information
