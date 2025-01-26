@@ -22,7 +22,7 @@ class GalleryController extends ControllerBase {
    * @return array
    *   A renderable array.
    */
-  public function myPage($prefix = null) {
+  public function myPage($prefix = '') {
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -36,7 +36,7 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = $prefix ?? 'photos/';
+      $prefix = 'photos/' . $prefix;
 
       // List objects in the specified prefix
       $objects = $s3->listObjectsV2([
@@ -52,7 +52,7 @@ class GalleryController extends ControllerBase {
         if (isset($objects['CommonPrefixes'])) {
           foreach ($objects['CommonPrefixes'] as $commonPrefix) {
             $folderName = rtrim($commonPrefix['Prefix'], '/');
-            $folderUrl = Url::fromRoute('s3_gallery.my_page', ['prefix' => $folderName . '/'])->toString();
+            $folderUrl = Url::fromRoute('s3_gallery.my_page', ['prefix' => str_replace('photos/', '', $folderName) . '/'])->toString();
             $output .= "<div class='gallery-item'>";
             $output .= "<a href='{$folderUrl}'>{$folderName}</a>";
             $output .= "</div>";
