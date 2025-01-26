@@ -68,10 +68,16 @@ class GalleryController extends ControllerBase {
         $output .= "No images found in '{$prefix}'.";
       }
 
+      // Debugging information
+      \Drupal::logger('s3_gallery')->debug('Output: @output', ['@output' => $output]);
+
+      // Ensure output is returned correctly
       return [
         '#markup' => $output,
       ];
     } catch (\Exception $e) {
+      // Debugging information
+      \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);
       return [
         '#markup' => "Error: " . $e->getMessage(),
       ];
