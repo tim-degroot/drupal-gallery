@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Aws\S3\S3Client;
 use Drupal\Core\Site\Settings;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Url;
 
 /**
  * Provides route responses for the S3 Gallery module.
@@ -52,7 +53,7 @@ class GalleryController extends ControllerBase {
         if (isset($objects['CommonPrefixes'])) {
           foreach ($objects['CommonPrefixes'] as $commonPrefix) {
             $folderName = rtrim($commonPrefix['Prefix'], '/');
-            $folderUrl = \Drupal::url('s3_gallery.my_page', [], ['query' => ['prefix' => $folderName . '/']]);
+            $folderUrl = Url::fromRoute('s3_gallery.my_page', [], ['query' => ['prefix' => $folderName . '/']])->toString();
             $output .= "<div class='gallery-item'>";
             $output .= "<a href='{$folderUrl}'>{$folderName}</a>";
             $output .= "</div>";
