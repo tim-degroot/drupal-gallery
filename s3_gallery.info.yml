@@ -1,0 +1,10 @@
+name: AWS S3 Gallery
+description: Creates an image gallery from a S3 bucket.
+package: Custom
+
+type: module
+core_version_requirement: ^10.3 || ^11
+
+dependencies:
+  - drupal:link
+  - drupal:views

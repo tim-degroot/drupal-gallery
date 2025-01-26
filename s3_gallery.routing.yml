@@ -1,0 +1,7 @@
+example.my_page:
+  path: '/gallery/page'
+  defaults:
+    _controller: '\Drupal\s3_gallery\Controller\ExampleController::myPage'
+    _title: 'Gallery page'
+  requirements:
+    _permission: 'access content'
