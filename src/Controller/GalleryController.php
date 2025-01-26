@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\gallery\Controller;
+namespace Drupal\s3_gallery\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 
