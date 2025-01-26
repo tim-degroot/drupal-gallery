@@ -155,7 +155,7 @@ class GalleryController extends ControllerBase {
       
       if (isset($contents['Contents'])) {
         foreach ($contents['Contents'] as $content) {
-          $output .= $content['Key'];
+          $output .= $content;
           $key = htmlspecialchars($content['Key']);
           $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key' => $key]);
           $request = $s3->createPresignedRequest($cmd, '+72 hour');
