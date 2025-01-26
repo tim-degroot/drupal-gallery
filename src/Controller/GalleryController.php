@@ -36,7 +36,7 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'photos/' . $prefix; // Ensure 'photos/' is prefixed and spaces are encoded
+      $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
 
       // Debugging information
       \Drupal::logger('s3_gallery')->debug('Listing objects with prefix: @prefix', ['@prefix' => $prefix]);
