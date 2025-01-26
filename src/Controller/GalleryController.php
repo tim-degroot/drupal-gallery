@@ -76,7 +76,7 @@ class GalleryController extends ControllerBase {
       return [
         '#markup' => $output,
       ];
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       return [
         '#markup' => "Error: " . $e->getMessage(),
       ];

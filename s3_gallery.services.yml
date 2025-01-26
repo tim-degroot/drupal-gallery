@@ -1,0 +1,5 @@
+services:
+  aws.s3_client:
+    class: Aws\S3\S3Client
+    factory: ['Aws\S3\S3Client', 'factory']
+    arguments: ['@config.factory']
