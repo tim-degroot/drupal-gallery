@@ -163,6 +163,7 @@ class GalleryController extends ControllerBase {
           // $url = (string) $request->getUri();
           $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
               }
+            }
       $output .= "</ul>";
 
       // Return the output as a renderable array
