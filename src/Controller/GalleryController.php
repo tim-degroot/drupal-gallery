@@ -36,7 +36,7 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'photos/' . $prefix;
+      $prefix = 'photos/' . urldecode($prefix);
 
       // List objects in the specified prefix
       $objects = $s3->listObjectsV2([
