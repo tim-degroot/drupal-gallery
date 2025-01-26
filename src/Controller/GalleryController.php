@@ -38,12 +38,18 @@ class GalleryController extends ControllerBase {
       $bucket = 'acdweb-storage';
       $prefix = 'photos/' . $prefix; // Ensure 'photos/' is prefixed
 
+      // Debugging information
+      \Drupal::logger('s3_gallery')->debug('Listing objects with prefix: @prefix', ['@prefix' => $prefix]);
+
       // List objects in the specified prefix
       $objects = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
         'Delimiter' => '/',
       ]);
+
+      // Debugging information
+      \Drupal::logger('s3_gallery')->debug('Objects found: @objects', ['@objects' => print_r($objects, TRUE)]);
 
       $output = '';
       if (isset($objects['Contents'])) {
