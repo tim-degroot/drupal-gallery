@@ -15,13 +15,13 @@ class GalleryController extends ControllerBase {
   /**
    * Returns a gallery page.
    *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request object.
+   * @param string|null $prefix
+   *   The prefix for the S3 objects.
    *
    * @return array
    *   A renderable array.
    */
-  public function myPage(Request $request) {
+  public function myPage($prefix = '') {
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -35,13 +35,13 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = $request->query->get('prefix', 'photos/');
+      $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
 
       // Print the current prefix
       $output = "Current prefix: " . htmlspecialchars($prefix) . "<br>";
 
       // List objects in the specified prefix
-      $contents = $s3->listObjectsV2([
+      $contents = $3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
       ]);
