@@ -46,6 +46,11 @@ class GalleryController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
+      $output .= "The contents of your bucket are: \n";
+            foreach ($contents['Contents'] as $content) {
+                $output .= $content['Key'] . "\n";
+            }
+
       // Debugging information
       \Drupal::logger('s3_gallery')->debug('Objects found: @objects', ['@objects' => print_r($objects, TRUE)]);
 
