@@ -44,8 +44,9 @@ class GalleryController extends ControllerBase {
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
-        'Delimiter' => '/',
       ]);
+
+      $output .= $contents
 
       $output .= "The contents of your bucket are: <br>";
       foreach ($contents['Contents'] as $content) {
