@@ -124,7 +124,7 @@ class GalleryController extends ControllerBase {
       $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
 
       // Print the current prefix
-      // $output = "<h2>Photo Gallery</h2>";
+      $output = "";
       // $output .= "<h3>Current prefix: " . htmlspecialchars($prefix) . "</h3>";
 
       // List objects in the specified prefix
