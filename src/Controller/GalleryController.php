@@ -139,20 +139,22 @@ class GalleryController extends ControllerBase {
         'Delimiter' => '/',
       ]);
 
-      $output .= "<h3>The contents of your bucket are:</h3>";
-      $output .= "<ul>";
-      if (isset($contents['Contents'])) {
-        foreach ($contents['Contents'] as $content) {
-          $output .= "<li>" . htmlspecialchars($content['Key']) . "</li>";
-        }
-      }
-      $output .= "</ul>";
-
       $output .= "<h3>The CommonPrefixes are:</h3>";
       $output .= "<ul>";
       if (isset($albums['CommonPrefixes'])) {
         foreach ($albums['CommonPrefixes'] as $commonPrefix) {
           $output .= "<li>" . htmlspecialchars($commonPrefix['Prefix']) . "</li>";
+        }
+      }
+      $output .= "</ul>";
+
+      $output .= "<h3>The contents of your bucket are:</h3>";
+      $output .= "<ul>";
+      if (isset($contents['Contents'])) {
+        foreach ($contents['Contents'] as $content) {
+          $key = htmlspecialchars($content['Key']);
+          $url = $s3Client->getObjectUrl($bucket, $key);
+          $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
         }
       }
       $output .= "</ul>";
