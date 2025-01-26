@@ -36,7 +36,7 @@ class GalleryController extends ControllerBase {
   public function myPage() {
     try {
       // Initialize S3 client
-      $config = $this->configFactory->get('system.site')->get('aws_s3');
+      $config = Settings::get('aws_s3');
       $s3 = new S3Client([
         'version' => 'latest',
         'region' => 'eu-central-1', // Change to your bucket's region
