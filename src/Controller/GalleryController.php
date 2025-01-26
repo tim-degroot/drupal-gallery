@@ -61,6 +61,8 @@ class GalleryController extends ControllerBase {
         'Delimiter' => '/', // Ensure only direct children are listed
       ]);
 
+      $output .= "<h3>Contents raw:</h3>";
+      $output .= $contents;
       $output .= "<h3>The contents of your bucket are:</h3>";
       $output .= "<ul>";
       if (isset($contents['Contents'])) {
@@ -118,8 +120,8 @@ class GalleryController extends ControllerBase {
       $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
 
       // Print the current prefix
-      $output = "<h2>Photo Gallery</h2>";
-      $output .= "<h3>Current prefix: " . htmlspecialchars($prefix) . "</h3>";
+      // $output = "<h2>Photo Gallery</h2>";
+      // $output .= "<h3>Current prefix: " . htmlspecialchars($prefix) . "</h3>";
 
       // List objects in the specified prefix
       $contents = $s3->listObjectsV2([
