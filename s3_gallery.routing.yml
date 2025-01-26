@@ -1,5 +1,5 @@
 example.my_page:
-  path: '/gallery/page'
+  path: '/gallery'
   defaults:
     _controller: '\Drupal\s3_gallery\Controller\gallery::myPage'
     _title: 'Gallery page'
