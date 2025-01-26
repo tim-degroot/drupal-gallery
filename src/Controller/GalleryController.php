@@ -13,6 +13,22 @@ use Symfony\Component\HttpFoundation\Request;
 class GalleryController extends ControllerBase {
 
   /**
+   * Returns the title for the gallery pages.
+   *
+   * @param string|null $prefix
+   *   The prefix for the S3 objects.
+   *
+   * @return string
+   *   The title for the gallery page.
+   */
+  public function getTitle($prefix = '') {
+    if (empty($prefix)) {
+      return 'Photo Gallery';
+    }
+    return 'Photo Gallery: ' . urldecode($prefix);
+  }
+
+  /**
    * Returns the main gallery page.
    *
    * @return array

@@ -2,7 +2,8 @@ s3_gallery.main_page:
   path: '/photos'
   defaults:
     _controller: '\Drupal\s3_gallery\Controller\GalleryController::mainPage'
-    _title: 'Photo Gallery'
+    _title_callback: '\Drupal\s3_gallery\Controller\GalleryController::getTitle'
+    _title: 'Main Photo Gallery'
   requirements:
     _permission: 'access content'
 
@@ -10,7 +11,7 @@ s3_gallery.my_page:
   path: '/photos/{prefix}'
   defaults:
     _controller: '\Drupal\s3_gallery\Controller\GalleryController::myPage'
-    _title: 'Photo Gallery {prefix}'
+    _title_callback: '\Drupal\s3_gallery\Controller\GalleryController::getTitle'
     prefix: ''
   requirements:
     _permission: 'access content'
