@@ -6,6 +6,7 @@ s3_gallery.my_page:
     prefix: ''
   requirements:
     _permission: 'access content'
+    prefix: '.*'
   options:
     parameters:
       prefix:
