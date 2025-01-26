@@ -6,4 +6,8 @@ s3_gallery.my_page:
     prefix: 'photos/'
   requirements:
     _permission: 'access content'
-    prefix: '[^/].*'
+  options:
+    parameters:
+      prefix:
+        type: 'string'
+        default: 'photos/'
