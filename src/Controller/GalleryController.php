@@ -124,7 +124,7 @@ class GalleryController extends ControllerBase {
       $bucket = 'acdweb-storage';
       $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
       $expires = '+10 minutes';
-      
+
       // Print the current prefix
       $output = "";
       // $output .= "<h3>Current prefix: " . htmlspecialchars($prefix) . "</h3>";
@@ -152,11 +152,12 @@ class GalleryController extends ControllerBase {
 
       $output .= "<h3>The contents of your bucket are:</h3>";
       $output .= "<ul>";
+      $output .= $content['Key'],
       if (isset($contents['Contents'])) {
         foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
           $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key'    => $key]);
-          $request = $s3->createPresignedRequest($cmd, $expires);
+          $request = $s3->createPresignedRequest($cmd, '+72 hour');
           $url = (string) $request->getUri();
           $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";        }
       }
