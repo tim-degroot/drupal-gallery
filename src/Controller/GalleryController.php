@@ -37,22 +37,26 @@ class GalleryController extends ControllerBase {
       $objects = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
-        'Delimiter' => '/',
       ]);
 
       $output = '';
-      if (isset($objects['CommonPrefixes'])) {
-        $output .= "<h1>Folders in '{$prefix}'</h1>";
-        $output .= "<ul>";
+      if (isset($objects['Contents'])) {
+        $output .= "<h1>Gallery</h1>";
+        $output .= "<div class='gallery'>";
 
-        foreach ($objects['CommonPrefixes'] as $commonPrefix) {
-          $folderName = rtrim($commonPrefix['Prefix'], '/');
-          $output .= "<li>{$folderName}</li>";
+        foreach ($objects['Contents'] as $object) {
+          $key = $object['Key'];
+          if (substr($key, -1) !== '/') { // Check if it's not a folder
+            $url = $s3->getObjectUrl($bucket, $key);
+            $output .= "<div class='gallery-item'>";
+            $output .= "<img src='{$url}' alt='{$key}' />";
+            $output .= "</div>";
+          }
         }
 
-        $output .= "</ul>";
+        $output .= "</div>";
       } else {
-        $output .= "No folders found in '{$prefix}'.";
+        $output .= "No images found in '{$prefix}'.";
       }
 
       return [
