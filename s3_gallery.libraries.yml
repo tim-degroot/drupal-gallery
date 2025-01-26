@@ -1,5 +1,5 @@
-fslightbox:
-  version: 3.4.2
+s3_gallery:
+  version: 1.0
   js:
     js/fslightbox.js: {}
   dependencies:
