@@ -41,7 +41,7 @@ class GalleryController extends ControllerBase {
       $output = "Current prefix: " . htmlspecialchars($prefix) . "<br>";
 
       // List objects in the specified prefix
-      $objects = $s3->listObjectsV2([
+      $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
       ]);
