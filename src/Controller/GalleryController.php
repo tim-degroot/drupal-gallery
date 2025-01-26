@@ -51,32 +51,6 @@ class GalleryController extends ControllerBase {
                 $output .= $content['Key'] . "\n";
             }
 
-      // // Debugging information
-      // \Drupal::logger('s3_gallery')->debug('Objects found: @objects', ['@objects' => print_r($objects, TRUE)]);
-
-      // // $output = '';
-      // if (isset($objects['Contents']) && !empty($objects['Contents'])) {
-      //   $output .= "<div class='gallery-urls'>";
-      //   foreach ($objects['Contents'] as $object) {
-      //     $key = $object['Key'];
-      //     if (substr($key, -1) !== '/') { // Check if it's not a folder
-      //       $url = $s3->getObjectUrl($bucket, $key);
-      //       $output .= "<div class='gallery-url'>";
-      //       $output .= "<a href='{$url}'>{$key}</a>";
-      //       $output .= "</div>";
-      //     }
-      //   }
-      //   $output .= "</div>";
-      // } else {
-      //   $output .= "No images found in '{$prefix}'.";
-      //   // Additional debugging information
-      //   \Drupal::logger('s3_gallery')->debug('No contents found in the specified prefix.');
-      // }
-
-      // // Debugging information
-      // \Drupal::logger('s3_gallery')->debug('Output: @output', ['@output' => $output]);
-
-      // Echo output directly
       echo $output;
       return [];
     } catch (\Exception $e) {
