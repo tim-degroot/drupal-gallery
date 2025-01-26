@@ -50,28 +50,26 @@ class GalleryController extends ControllerBase {
       $bucket = 'acdweb-storage';
       $prefix = 'photos/';
 
-      // Set the folder to be listed manually
-      $folder = 'photos/20241106 Boulderen/'; // Change this to the desired folder
-
-      // List objects in the selected folder
+      // List objects in the specified prefix
       $objects = $s3->listObjectsV2([
         'Bucket' => $bucket,
-        'Prefix' => $folder,
+        'Prefix' => $prefix,
+        'Delimiter' => '/',
       ]);
 
       $output = '';
-      if (isset($objects['Contents'])) {
-        $output .= "<h1>Images in '{$folder}'</h1>";
-        $output .= "<div class='gallery'>";
+      if (isset($objects['CommonPrefixes'])) {
+        $output .= "<h1>Folders in '{$prefix}'</h1>";
+        $output .= "<ul>";
 
-        foreach ($objects['Contents'] as $object) {
-          $url = $s3->getObjectUrl($bucket, $object['Key']);
-          $output .= "<img src='{$url}' alt='Image'>";
+        foreach ($objects['CommonPrefixes'] as $commonPrefix) {
+          $folderName = rtrim($commonPrefix['Prefix'], '/');
+          $output .= "<li>{$folderName}</li>";
         }
 
-        $output .= "</div>";
+        $output .= "</ul>";
       } else {
-        $output .= "No objects found in '{$folder}'.";
+        $output .= "No folders found in '{$prefix}'.";
       }
 
       return [
