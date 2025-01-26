@@ -167,7 +167,12 @@ class GalleryController extends ControllerBase {
       // Return the output as a renderable array
       return [
         '#markup' => $output,
-      ];
+        '#attached' => [
+        'library' => [
+            'drupal-gallery/fslightbox',
+        ],
+      ]
+];
     } catch (\Exception $e) {
       // Debugging information
       \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);
