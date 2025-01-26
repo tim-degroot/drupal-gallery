@@ -2,7 +2,7 @@ s3_gallery.my_page:
   path: '/photos/{prefix}'
   defaults:
     _controller: '\Drupal\s3_gallery\Controller\GalleryController::myPage'
-    _title: 'Gallery page'
+    _title: 'Photo gallery'
     prefix: ''
   requirements:
     _permission: 'access content'
