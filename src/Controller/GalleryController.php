@@ -55,7 +55,7 @@ class GalleryController extends ControllerBase {
 
       $output .= "The CommonPrefixes are: <br>";
       foreach ($contents['CommonPrefixes'] as $commonPrefix) {
-        $output .= $commonPrefix . "<br>"
+        $output .= $commonPrefix . "<br>";
       }
 
       // Return the output as a renderable array
