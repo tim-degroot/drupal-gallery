@@ -44,7 +44,6 @@ class GalleryController extends ControllerBase {
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
-        'Delimiter' => '/',
       ]);
 
       $output .= $contents;
@@ -53,6 +52,8 @@ class GalleryController extends ControllerBase {
       foreach ($contents['Contents'] as $content) {
         $output .= $content['Key'] . "<br>";
       }
+
+      
 
       $output .= "The CommonPrefixes are: <br>";
       foreach ($contents['CommonPrefixes'] as $commonPrefix) {
