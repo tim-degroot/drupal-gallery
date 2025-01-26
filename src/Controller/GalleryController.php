@@ -16,13 +16,13 @@ class GalleryController extends ControllerBase {
   /**
    * Returns a gallery page.
    *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The current request object.
+   * @param string $prefix
+   *   The prefix for the S3 objects.
    *
    * @return array
    *   A renderable array.
    */
-  public function myPage(Request $request) {
+  public function myPage($prefix = 'photos/') {
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -36,7 +36,6 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = $request->query->get('prefix', 'photos/');
 
       // List objects in the specified prefix
       $objects = $s3->listObjectsV2([
@@ -47,13 +46,12 @@ class GalleryController extends ControllerBase {
 
       $output = '';
       if (isset($objects['CommonPrefixes']) || isset($objects['Contents'])) {
-        $output .= "<h1>Gallery</h1>";
         $output .= "<div class='gallery'>";
 
         if (isset($objects['CommonPrefixes'])) {
           foreach ($objects['CommonPrefixes'] as $commonPrefix) {
             $folderName = rtrim($commonPrefix['Prefix'], '/');
-            $folderUrl = Url::fromRoute('s3_gallery.my_page', [], ['query' => ['prefix' => $folderName . '/']])->toString();
+            $folderUrl = Url::fromRoute('s3_gallery.my_page', ['prefix' => $folderName . '/'])->toString();
             $output .= "<div class='gallery-item'>";
             $output .= "<a href='{$folderUrl}'>{$folderName}</a>";
             $output .= "</div>";
