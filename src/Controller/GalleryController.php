@@ -109,7 +109,6 @@ class GalleryController extends ControllerBase {
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
-        'Delimiter' => '/', // Ensure only direct children are listed
       ]);
 
       $output .= "<h3>The contents of your bucket are:</h3>";
