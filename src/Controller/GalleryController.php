@@ -46,38 +46,20 @@ class GalleryController extends ControllerBase {
       ]);
 
       $output = '';
-      if (isset($objects['CommonPrefixes']) || isset($objects['Contents'])) {
-        $output .= "<div class='gallery'>";
-
-        if (isset($objects['CommonPrefixes'])) {
-          foreach ($objects['CommonPrefixes'] as $commonPrefix) {
-            $folderName = rtrim($commonPrefix['Prefix'], '/');
-            $folderUrl = Url::fromRoute('s3_gallery.my_page', ['prefix' => str_replace('photos/', '', $folderName) . '/'])->toString();
-            $output .= "<div class='gallery-item'>";
-            $output .= "<a href='{$folderUrl}'>{$folderName}</a>";
+      if (isset($objects['Contents'])) {
+        $output .= "<div class='gallery-urls'>";
+        foreach ($objects['Contents'] as $object) {
+          $key = $object['Key'];
+          if (substr($key, -1) !== '/') { // Check if it's not a folder
+            $url = $s3->getObjectUrl($bucket, $key);
+            $output .= "<div class='gallery-url'>";
+            $output .= "<a href='{$url}'>{$key}</a>";
             $output .= "</div>";
           }
         }
-
-        if (isset($objects['Contents'])) {
-          foreach ($objects['Contents'] as $object) {
-            $key = $object['Key'];
-            if (substr($key, -1) !== '/') { // Check if it's not a folder
-              $result = $s3->getObject([
-                'Bucket' => $bucket,
-                'Key'    => $key,
-              ]);
-              $imageData = base64_encode($result['Body']);
-              $output .= "<div class='gallery-item'>";
-              $output .= "<img src='data:image/jpeg;base64,{$imageData}' alt='{$key}' />";
-              $output .= "</div>";
-            }
-          }
-        }
-
         $output .= "</div>";
       } else {
-        $output .= "No images or folders found in '{$prefix}'.";
+        $output .= "No images found in '{$prefix}'.";
       }
 
       return [
