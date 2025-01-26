@@ -155,9 +155,9 @@ class GalleryController extends ControllerBase {
         foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
           $object = $s3->getObject(['Bucket' => $bucket, 'Key' => $key,]);
-          $url = $object['@metadata']['effectiveUri'];
-          $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
-        }
+          $data = base64_encode($object['Body']);
+          $url = "data:image/png;base64,{$data}";
+          $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";        }
       }
       $output .= "</ul>";
 
