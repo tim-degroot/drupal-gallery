@@ -1,4 +1,4 @@
-example.my_page:
+s3_Gallery.my_page:
   path: '/gallery'
   defaults:
     _controller: '\Drupal\s3_gallery\Controller\GalleryController::myPage'
