@@ -1,0 +1,6 @@
+fslightbox:
+  version: 1.x
+  js:
+    js/fslightbox.js: {}
+  dependencies:
+    - core/jquery

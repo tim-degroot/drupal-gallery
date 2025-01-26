@@ -169,7 +169,7 @@ class GalleryController extends ControllerBase {
         '#markup' => $output,
         '#attached' => [
         'library' => [
-            'drupal-gallery/fslightbox',
+            's3_gallery/fslightbox',
         ],
       ]
 ];
