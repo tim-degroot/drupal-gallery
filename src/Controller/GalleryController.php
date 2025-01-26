@@ -150,13 +150,13 @@ class GalleryController extends ControllerBase {
       }
       $output .= "</ul>";
 
-      $output .= "<h3>The contents of your bucket are:</h3>";
+      $output .= "<h3>The contents of your bucket are:</h3>:";
       $output .= "<ul>";
-      $output .= $content['Key'],
+      $output .= $content['Key'];
       if (isset($contents['Contents'])) {
         foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
-          $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key'    => $key]);
+          $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key' => $key]);
           $request = $s3->createPresignedRequest($cmd, '+72 hour');
           $url = (string) $request->getUri();
           $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";        }
