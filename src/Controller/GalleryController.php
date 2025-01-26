@@ -16,8 +16,7 @@ class ExampleController extends ControllerBase {
    */
   public function myPage() {
     return [
-      '#markup' => 'Hello, world',
-    ];
+    '#markup' => $this->t('This is the gallery page.'),    ];
   }
 
 }
