@@ -36,10 +36,7 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
-
-      // Print the current prefix
-      echo "Current prefix: " . htmlspecialchars($prefix) . "<br>";
+      $prefix = 'photos/' . $prefix; // Ensure 'photos/' is prefixed
 
       // List objects in the specified prefix
       $objects = $s3->listObjectsV2([
@@ -48,11 +45,8 @@ class GalleryController extends ControllerBase {
         'Delimiter' => '/',
       ]);
 
-      // Debugging information
-      \Drupal::logger('s3_gallery')->debug('Objects found: @objects', ['@objects' => print_r($objects, TRUE)]);
-
       $output = '';
-      if (isset($objects['Contents']) && !empty($objects['Contents'])) {
+      if (isset($objects['Contents'])) {
         $output .= "<div class='gallery-urls'>";
         foreach ($objects['Contents'] as $object) {
           $key = $object['Key'];
@@ -66,20 +60,12 @@ class GalleryController extends ControllerBase {
         $output .= "</div>";
       } else {
         $output .= "No images found in '{$prefix}'.";
-        // Additional debugging information
-        \Drupal::logger('s3_gallery')->debug('No contents found in the specified prefix.');
       }
 
-      // Debugging information
-      \Drupal::logger('s3_gallery')->debug('Output: @output', ['@output' => $output]);
-
-      // Ensure output is returned correctly
       return [
         '#markup' => $output,
       ];
     } catch (\Exception $e) {
-      // Debugging information
-      \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);
       return [
         '#markup' => "Error: " . $e->getMessage(),
       ];
