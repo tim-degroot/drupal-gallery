@@ -46,7 +46,7 @@ class GalleryController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      $output .= $contents
+      echo $contents
 
       $output .= "The contents of your bucket are: <br>";
       foreach ($contents['Contents'] as $content) {
