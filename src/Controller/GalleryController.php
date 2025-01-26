@@ -3,30 +3,13 @@
 namespace Drupal\s3_gallery\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Aws\S3\S3Client;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Site\Settings; // Add this line
+use Drupal\Core\Site\Settings;
 
 /**
  * Provides route responses for the S3 Gallery module.
  */
 class GalleryController extends ControllerBase {
-
-  protected $configFactory;
-  protected $s3Client;
-
-  public function __construct(ConfigFactoryInterface $config_factory, S3Client $s3_client) {
-    $this->configFactory = $config_factory;
-    $this->s3Client = $s3_client;
-  }
-
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('aws.s3_client')
-    );
-  }
 
   /**
    * Returns a gallery page.
