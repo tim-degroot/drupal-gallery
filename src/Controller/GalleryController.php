@@ -133,6 +133,12 @@ class GalleryController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
+      $albums = $s3->listObjectsV2([
+        'Bucket' => $bucket,
+        'Prefix' => $prefix,
+        'Delimiter' => '/',
+      ])
+
       $output .= "<h3>The contents of your bucket are:</h3>";
       $output .= "<ul>";
       if (isset($contents['Contents'])) {
@@ -144,8 +150,8 @@ class GalleryController extends ControllerBase {
 
       $output .= "<h3>The CommonPrefixes are:</h3>";
       $output .= "<ul>";
-      if (isset($contents['CommonPrefixes'])) {
-        foreach ($contents['CommonPrefixes'] as $commonPrefix) {
+      if (isset($albums['CommonPrefixes'])) {
+        foreach ($albums['CommonPrefixes'] as $commonPrefix) {
           $output .= "<li>" . htmlspecialchars($commonPrefix['Prefix']) . "</li>";
         }
       }
