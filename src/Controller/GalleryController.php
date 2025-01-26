@@ -137,7 +137,7 @@ class GalleryController extends ControllerBase {
         'Bucket' => $bucket,
         'Prefix' => $prefix,
         'Delimiter' => '/',
-      ])
+      ]);
 
       $output .= "<h3>The contents of your bucket are:</h3>";
       $output .= "<ul>";
