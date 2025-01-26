@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\example\Controller;
+namespace Drupal\gallery\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 
