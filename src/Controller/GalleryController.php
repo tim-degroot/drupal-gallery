@@ -79,6 +79,7 @@ class GalleryController extends ControllerBase {
           $prefix = htmlspecialchars($commonPrefix['Prefix']);
           $splitPrefix = explode('/', trim($prefix, '/'));
           array_shift($splitPrefix); // remove the first entry
+          $output .= $splitPrefix
           $url = "photos/" . implode('/', $splitPrefix);
           $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
         }
