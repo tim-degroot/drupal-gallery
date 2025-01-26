@@ -76,7 +76,10 @@ class GalleryController extends ControllerBase {
       $output .= "<ul>";
       if (isset($contents['CommonPrefixes'])) {
         foreach ($contents['CommonPrefixes'] as $commonPrefix) {
-          $output .= "<li>" . htmlspecialchars($commonPrefix['Prefix']) . "</li>";
+          $prefix = htmlspecialchars($commonPrefix['Prefix']);
+          $splitPrefix = explode('/', trim($prefix, '/'));
+          $url = "/your-url-path/" . implode('/', $splitPrefix);
+          $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
         }
       }
       $output .= "</ul>";
