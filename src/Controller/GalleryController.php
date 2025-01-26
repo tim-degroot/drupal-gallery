@@ -47,13 +47,9 @@ class GalleryController extends ControllerBase {
         foreach ($objects['Contents'] as $object) {
           $key = $object['Key'];
           if (substr($key, -1) !== '/') { // Check if it's not a folder
-            $result = $s3->getObject([
-              'Bucket' => $bucket,
-              'Key'    => $key,
-            ]);
-            $imageData = base64_encode($result['Body']);
+            $url = $s3->getObjectUrl($bucket, $key);
             $output .= "<div class='gallery-item'>";
-            $output .= "<img src='data:image/jpeg;base64,{$imageData}' alt='{$key}' />";
+            $output .= "<img src='{$url}' alt='{$key}' />";
             $output .= "</div>";
           }
         }
