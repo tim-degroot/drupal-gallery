@@ -157,9 +157,10 @@ class GalleryController extends ControllerBase {
         foreach ($contents['Contents'] as $content) {
           $output .= implode(' > ', $content);
           $key = htmlspecialchars($content['Key']);
-          $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key' => $key]);
-          $request = $s3->createPresignedRequest($cmd, '+72 hour');
-          $url = (string) $request->getUri();
+          $url = $s3->getObjectUrl($bucket, $key);
+          // $cmd = $s3->getCommand('GetObject', ['Bucket' => $bucket,'Key' => $key]);
+          // $request = $s3->createPresignedRequest($cmd, '+72 hour');
+          // $url = (string) $request->getUri();
           $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
               }
             }
