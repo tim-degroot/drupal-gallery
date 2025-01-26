@@ -16,13 +16,13 @@ class GalleryController extends ControllerBase {
   /**
    * Returns a gallery page.
    *
-   * @param string $prefix
+   * @param string|null $prefix
    *   The prefix for the S3 objects.
    *
    * @return array
    *   A renderable array.
    */
-  public function myPage($prefix = 'photos/') {
+  public function myPage($prefix = null) {
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -36,6 +36,7 @@ class GalleryController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
+      $prefix = $prefix ?? 'photos/';
 
       // List objects in the specified prefix
       $objects = $s3->listObjectsV2([
