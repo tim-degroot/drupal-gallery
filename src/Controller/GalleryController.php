@@ -156,7 +156,7 @@ class GalleryController extends ControllerBase {
           $key = htmlspecialchars($content['Key']);
           $object = $s3->getObject(['Bucket' => $bucket, 'Key' => $key,]);
           $data = base64_encode($object['Body']);
-          $url = "data:image/png;base64,{$data}";
+          $url = 'data:' . $result['ContentType'] . ';base64,' . $base64Image;
           $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";        }
       }
       $output .= "</ul>";
