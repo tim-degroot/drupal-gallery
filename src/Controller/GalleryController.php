@@ -215,7 +215,7 @@ class GalleryController extends ControllerBase {
           $url = $s3->getObjectUrl($bucket, $key);
           // $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
           if (substr($url, -1) !== '/') {
-          $output .= "<div style=\" max-width: 400px; \"><img src=\"$url\"/></div>";
+          $output .= "<div style=\" max-width: 400px; loading=\"lazy\"\"><img src=\"$url\"/></div>";
           }
         }
       }
