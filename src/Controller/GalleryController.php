@@ -70,18 +70,18 @@ class GalleryController extends ControllerBase {
       // }
       // $output .= "</ul>";
 
-      $output .= "<h3>The CommonPrefixes are:</h3>";
-      $output .= "<ul>";
-      if (isset($contents['CommonPrefixes'])) {
-        foreach ($contents['CommonPrefixes'] as $commonPrefix) {
-          $prefix = htmlspecialchars($commonPrefix['Prefix']);
-          $splitPrefix = explode('/', trim($prefix, '/'));
-          array_shift($splitPrefix); // remove the first entry
-          $url = "/photos/" . implode('/', $splitPrefix);
-          $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
-        }
-      }
-      $output .= "</ul>";
+      // $output .= "<h3>The CommonPrefixes are:</h3>";
+      // $output .= "<ul>";
+      // if (isset($contents['CommonPrefixes'])) {
+      //   foreach ($contents['CommonPrefixes'] as $commonPrefix) {
+      //     $prefix = htmlspecialchars($commonPrefix['Prefix']);
+      //     $splitPrefix = explode('/', trim($prefix, '/'));
+      //     array_shift($splitPrefix); // remove the first entry
+      //     $url = "/photos/" . implode('/', $splitPrefix);
+      //     $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
+      //   }
+      // }
+      // $output .= "</ul>";
 
       $prefixes_by_year = [];
 
@@ -96,8 +96,7 @@ class GalleryController extends ControllerBase {
           }
       }
 
-      // Sort the prefixes by year
-      krsort($prefixes_by_year);
+      krsort($prefixes_by_year); // sort by year
 
       foreach ($prefixes_by_year as $year => $prefixes) {
         usort($prefixes, function($a, $b) {
