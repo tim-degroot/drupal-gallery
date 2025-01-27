@@ -117,6 +117,13 @@ class GalleryController extends ControllerBase {
             $url = "/photos/" . implode('/', $splitPrefix);
             $displayText = implode(' > ', $splitPrefix);
             $displayText = substr($displayText, 4); // Remove the first 4 characters
+            // Extract MM and DD
+            $month = substr($displayText, 0, 2);
+            $day = substr($displayText, 2, 2);
+            $placeholder = substr($displayText, 4); // Extract the rest of the string
+            
+            // Reformat to DD/MM {Placeholder}
+            $displayText = $day . '/' . $month . ' ' . $placeholder;
             $output .= "<li><a href=\"$url\">$displayText</a></li>";
         }
         $output .= "</ul>";
