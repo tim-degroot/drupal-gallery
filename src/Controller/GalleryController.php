@@ -32,7 +32,7 @@ class GalleryController extends ControllerBase {
     // $placeholder = substr($displayText, 4); // Extract the rest of the string
     
     // Reformat to DD/MM {Placeholder}
-    $displayText = date_format($date, "D j M y") . " —" . $title;
+    $displayText = date_format($date, "D j M Y") . " —" . $title;
     return $displayText;
   }
 
