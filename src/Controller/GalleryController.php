@@ -79,7 +79,6 @@ class GalleryController extends ControllerBase {
           $prefix = htmlspecialchars($commonPrefix['Prefix']);
           $splitPrefix = explode('/', trim($prefix, '/'));
           array_shift($splitPrefix); // remove the first entry
-          $output .= implode('/', $splitPrefix);
           $url = "/photos/" . implode('/', $splitPrefix);
           $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
         }
@@ -145,11 +144,14 @@ class GalleryController extends ControllerBase {
       $output .= "<ul>";
       if (isset($albums['CommonPrefixes'])) {
         foreach ($albums['CommonPrefixes'] as $commonPrefix) {
-          $output .= "<li>" . htmlspecialchars($commonPrefix['Prefix']) . "</li>";
+          $prefix = htmlspecialchars($commonPrefix['Prefix']);
+          $splitPrefix = explode('/', trim($prefix, '/'));
+          array_shift($splitPrefix); // remove the first entry
+          $url = "/photos/" . implode('/', $splitPrefix);
+          $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
         }
       }
       $output .= "</ul>";
-
       $output .= "<h3>The contents of your bucket are:</h3>:";
       $output .= "<div class=\"grid-wrapper\">";
       
