@@ -25,7 +25,15 @@ class GalleryController extends ControllerBase {
     if (empty($prefix)) {
       return 'Photo Gallery';
     }
-    return 'Photo Gallery: ' . urldecode($prefix);
+    $date = date_create(substr($prefix, 0, 8));
+    $title = substr($prefix, 8);
+    // $month = substr($displayText, 0, 2);
+    // $day = substr($displayText, 2, 2);
+    // $placeholder = substr($displayText, 4); // Extract the rest of the string
+    
+    // Reformat to DD/MM {Placeholder}
+    $displayText = date_format($date, "D j M y") . " —" . $title;
+    return $displayText;
   }
 
   /**
