@@ -151,29 +151,28 @@ class GalleryController extends ControllerBase {
       $output .= "</ul>";
 
       $output .= "<h3>The contents of your bucket are:</h3>:";
-      // $output .= "<ul>";
+      $output .= "<div id=\"my_nanogallery2\" data-nanogallery2  >";
       
       if (isset($contents['Contents'])) {
         foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
           $url = $s3->getObjectUrl($bucket, $key);
           // $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
-          $output .= "<a data-fslightbox=\"gallery\" href=\"$url\"></a>";
+          $output .= "<a href=\"$url\"><img src=\"$url\"/></a>";
               }
             }
-      // $output .= "</ul>";
-      // $output .= "<script src=\"js/fslightbox.js\"></script>";
-      // $output .= "fslightbox";
-
+      $output .= "</div>"
+      $output .= "<script src=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/jquery.nanogallery2.min.js \"></script>"
+      $output .= "<link href=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/css/nanogallery2.min.css \" rel=\"stylesheet\">"
       // Return the output as a renderable array
       return [
         '#markup' => $output,
         '#attached' => [
-        'library' => [
-            's3_gallery/fslightbox',
-        ],
-      ]
-];
+          'library' => [
+              's3_gallery/fslightbox',
+          ],
+        ]
+      ];
     } catch (\Exception $e) {
       // Debugging information
       \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);
