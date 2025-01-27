@@ -88,7 +88,7 @@ class GalleryController extends ControllerBase {
       if (isset($contents['CommonPrefixes'])) {
           foreach ($contents['CommonPrefixes'] as $commonPrefix) {
               $prefix = htmlspecialchars($commonPrefix['Prefix']);
-              $year = substr($prefix, 0, 4); // Extract the year (first 4 symbols)
+              $year = substr($prefix, 7, 11); // Extract the year (first 4 symbols)
               if (!isset($prefixes_by_year[$year])) {
                   $prefixes_by_year[$year] = [];
               }
