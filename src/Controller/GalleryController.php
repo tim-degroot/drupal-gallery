@@ -51,8 +51,6 @@ class GalleryController extends ControllerBase {
       $prefix = 'photos/';
 
       // Print the current prefix
-      $output = "<h2>Main Photo Gallery</h2>";
-      $output .= "<h3>Current prefix: " . htmlspecialchars($prefix) . "</h3>";
 
       // List objects in the specified prefix
       $contents = $s3->listObjectsV2([
@@ -61,16 +59,16 @@ class GalleryController extends ControllerBase {
         'Delimiter' => '/', // Ensure only direct children are listed
       ]);
 
-      $output .= "<h3>Contents raw:</h3>";
-      $output .= $contents;
-      $output .= "<h3>The contents of your bucket are:</h3>";
-      $output .= "<ul>";
-      if (isset($contents['Contents'])) {
-        foreach ($contents['Contents'] as $content) {
-          $output .= "<li>" . htmlspecialchars($content['Key']) . "</li>";
-        }
-      }
-      $output .= "</ul>";
+      // $output .= "<h3>Contents raw:</h3>";
+      // $output .= $contents;
+      // $output .= "<h3>The contents of your bucket are:</h3>";
+      // $output .= "<ul>";
+      // if (isset($contents['Contents'])) {
+      //   foreach ($contents['Contents'] as $content) {
+      //     $output .= "<li>" . htmlspecialchars($content['Key']) . "</li>";
+      //   }
+      // }
+      // $output .= "</ul>";
 
       $output .= "<h3>The CommonPrefixes are:</h3>";
       $output .= "<ul>";
@@ -84,6 +82,34 @@ class GalleryController extends ControllerBase {
         }
       }
       $output .= "</ul>";
+
+      $prefixes_by_year = [];
+
+      if (isset($contents['CommonPrefixes'])) {
+          foreach ($contents['CommonPrefixes'] as $commonPrefix) {
+              $prefix = htmlspecialchars($commonPrefix['Prefix']);
+              $year = substr($prefix, 0, 4); // Extract the year (first 4 symbols)
+              if (!isset($prefixes_by_year[$year])) {
+                  $prefixes_by_year[$year] = [];
+              }
+              $prefixes_by_year[$year][] = $prefix;
+          }
+      }
+
+      // Sort the prefixes by year
+      ksort($prefixes_by_year);
+
+      foreach ($prefixes_by_year as $year => $prefixes) {
+          $output .= "<h3>$year</h3>";
+          $output .= "<ul>";
+          foreach ($prefixes as $prefix) {
+              $splitPrefix = explode('/', trim($prefix, '/'));
+              array_shift($splitPrefix); // remove the first entry
+              $url = "/photos/" . implode('/', $splitPrefix);
+              $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
+          }
+          $output .= "</ul>";
+      }
 
       // Return the output as a renderable array
       return [
@@ -146,7 +172,7 @@ class GalleryController extends ControllerBase {
         foreach ($albums['CommonPrefixes'] as $commonPrefix) {
           $prefix = htmlspecialchars($commonPrefix['Prefix']);
           $splitPrefix = explode('/', trim($prefix, '/'));
-          // array_shift($splitPrefix); // remove the first entry
+          array_shift($splitPrefix); // remove the first entry
           $url = "/photos/" . implode('/', $splitPrefix);
           $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
         }
