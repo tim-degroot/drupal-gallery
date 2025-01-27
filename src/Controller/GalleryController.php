@@ -59,6 +59,8 @@ class GalleryController extends ControllerBase {
         'Delimiter' => '/', // Ensure only direct children are listed
       ]);
 
+      $output = ""
+      
       // $output .= "<h3>Contents raw:</h3>";
       // $output .= $contents;
       // $output .= "<h3>The contents of your bucket are:</h3>";
