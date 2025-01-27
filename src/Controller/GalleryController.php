@@ -107,7 +107,7 @@ class GalleryController extends ControllerBase {
             return strcmp(implode('/', $b_split), implode('/', $a_split)); // Reverse order
         });
     
-        $output .= "<h3>$year</h3>";
+        $output .= "<h2>$year</h2>";
         $output .= "<ul>";
         foreach ($prefixes as $prefix) {
             $splitPrefix = explode('/', trim($prefix, '/'));
