@@ -1,6 +1,10 @@
-s3_gallery:
-  version: 1.0
+fslightbox:
+  version: 3.4.2
   js:
     js/fslightbox.js: {}
+    https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/jquery.nanogallery2.min.js: {}
+  css:
+    theme:
+      https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/css/nanogallery2.min.css: {}
   dependencies:
     - core/jquery

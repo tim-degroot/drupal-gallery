@@ -151,27 +151,67 @@ class GalleryController extends ControllerBase {
       $output .= "</ul>";
 
       $output .= "<h3>The contents of your bucket are:</h3>:";
-      $output .= "<div id=\"my_nanogallery2\" data-nanogallery2  >";
+      $output .= "<div class=\"grid-wrapper\">";
       
       if (isset($contents['Contents'])) {
         foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
           $url = $s3->getObjectUrl($bucket, $key);
           // $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
-          $output .= "<a href=\"$url\"><img src=\"$url\"/></a>";
+          $output .= "<div><img src=\"$url\"/></div>";
               }
             }
       $output .= "</div>";
-      $output .= "<script src=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/jquery.nanogallery2.min.js \"></script>";
-      $output .= "<link href=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/css/nanogallery2.min.css \" rel=\"stylesheet\">";
-      // Return the output as a renderable array
+
+      $output .= "<style>
+.grid-wrapper > div > img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* Main CSS */
+.grid-wrapper > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid-wrapper > div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+}
+.grid-wrapper .wide {
+    grid-column: span 2;
+}
+.grid-wrapper .tall {
+    grid-row: span 2;
+}
+.grid-wrapper .big {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+</style>";
+      
       return [
         '#markup' => $output,
         '#attached' => [
           'library' => [
-              's3_gallery/fslightbox',
+              's3_gallery/https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/jquery.nanogallery2.min.js',
+              's3_gallery/https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/css/nanogallery2.min.css',
           ],
-        ]
+        ],
+        
       ];
     } catch (\Exception $e) {
       // Debugging information
