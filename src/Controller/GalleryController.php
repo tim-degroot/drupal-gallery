@@ -97,7 +97,7 @@ class GalleryController extends ControllerBase {
       }
 
       // Sort the prefixes by year
-      ksort($prefixes_by_year);
+      krsort($prefixes_by_year);
 
       foreach ($prefixes_by_year as $year => $prefixes) {
           $output .= "<h3>$year</h3>";
