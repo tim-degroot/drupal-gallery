@@ -100,13 +100,12 @@ class GalleryController extends ControllerBase {
       krsort($prefixes_by_year);
 
       foreach ($prefixes_by_year as $year => $prefixes) {
-        // Sort the prefixes alphabetically by their first part after removing the first entry
         usort($prefixes, function($a, $b) {
             $a_split = explode('/', trim($a, '/'));
             $b_split = explode('/', trim($b, '/'));
             array_shift($a_split); // remove the first entry
             array_shift($b_split); // remove the first entry
-            return strcmp(implode('/', $a_split), implode('/', $b_split));
+            return strcmp(implode('/', $b_split), implode('/', $a_split)); // Reverse order
         });
     
         $output .= "<h3>$year</h3>";
