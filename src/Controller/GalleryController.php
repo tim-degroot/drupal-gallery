@@ -146,7 +146,7 @@ class GalleryController extends ControllerBase {
         foreach ($albums['CommonPrefixes'] as $commonPrefix) {
           $prefix = htmlspecialchars($commonPrefix['Prefix']);
           $splitPrefix = explode('/', trim($prefix, '/'));
-          array_shift($splitPrefix); // remove the first entry
+          // array_shift($splitPrefix); // remove the first entry
           $url = "/photos/" . implode('/', $splitPrefix);
           $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
         }
