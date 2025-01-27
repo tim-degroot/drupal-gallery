@@ -100,16 +100,25 @@ class GalleryController extends ControllerBase {
       krsort($prefixes_by_year);
 
       foreach ($prefixes_by_year as $year => $prefixes) {
-          $output .= "<h3>$year</h3>";
-          $output .= "<ul>";
-          foreach ($prefixes as $prefix) {
-              $splitPrefix = explode('/', trim($prefix, '/'));
-              array_shift($splitPrefix); // remove the first entry
-              $url = "/photos/" . implode('/', $splitPrefix);
-              $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
-          }
-          $output .= "</ul>";
-      }
+        // Sort the prefixes alphabetically by their first part after removing the first entry
+        usort($prefixes, function($a, $b) {
+            $a_split = explode('/', trim($a, '/'));
+            $b_split = explode('/', trim($b, '/'));
+            array_shift($a_split); // remove the first entry
+            array_shift($b_split); // remove the first entry
+            return strcmp(implode('/', $a_split), implode('/', $b_split));
+        });
+    
+        $output .= "<h3>$year</h3>";
+        $output .= "<ul>";
+        foreach ($prefixes as $prefix) {
+            $splitPrefix = explode('/', trim($prefix, '/'));
+            array_shift($splitPrefix); // remove the first entry
+            $url = "/photos/" . implode('/', $splitPrefix);
+            $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
+        }
+        $output .= "</ul>";
+    }
 
       // Return the output as a renderable array
       return [
