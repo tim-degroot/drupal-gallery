@@ -115,7 +115,9 @@ class GalleryController extends ControllerBase {
             $splitPrefix = explode('/', trim($prefix, '/'));
             array_shift($splitPrefix); // remove the first entry
             $url = "/photos/" . implode('/', $splitPrefix);
-            $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
+            $displayText = implode(' > ', $splitPrefix);
+            $displayText = substr($displayText, 4); // Remove the first 4 characters
+            $output .= "<li><a href=\"$url\">$displayText</a></li>";
         }
         $output .= "</ul>";
     }
@@ -157,7 +159,7 @@ class GalleryController extends ControllerBase {
 
       $bucket = 'acdweb-storage';
       $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
-      $expires = '+10 minutes';
+      // $expires = '+10 minutes';
 
       // Print the current prefix
       $output = "";
@@ -169,25 +171,25 @@ class GalleryController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      $albums = $s3->listObjectsV2([
-        'Bucket' => $bucket,
-        'Prefix' => $prefix,
-        'Delimiter' => '/',
-      ]);
+      // $albums = $s3->listObjectsV2([
+      //   'Bucket' => $bucket,
+      //   'Prefix' => $prefix,
+      //   'Delimiter' => '/',
+      // ]);
 
-      $output .= "<h3>The CommonPrefixes are:</h3>";
-      $output .= "<ul>";
-      if (isset($albums['CommonPrefixes'])) {
-        foreach ($albums['CommonPrefixes'] as $commonPrefix) {
-          $prefix = htmlspecialchars($commonPrefix['Prefix']);
-          $splitPrefix = explode('/', trim($prefix, '/'));
-          array_shift($splitPrefix); // remove the first entry
-          $url = "/photos/" . implode('/', $splitPrefix);
-          $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
-        }
-      }
-      $output .= "</ul>";
-      $output .= "<h3>The contents of your bucket are:</h3>:";
+      // $output .= "<h3>The CommonPrefixes are:</h3>";
+      // $output .= "<ul>";
+      // if (isset($albums['CommonPrefixes'])) {
+      //   foreach ($albums['CommonPrefixes'] as $commonPrefix) {
+      //     $prefix = htmlspecialchars($commonPrefix['Prefix']);
+      //     $splitPrefix = explode('/', trim($prefix, '/'));
+      //     array_shift($splitPrefix); // remove the first entry
+      //     $url = "/photos/" . implode('/', $splitPrefix);
+      //     $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
+      //   }
+      // }
+      // $output .= "</ul>";
+      // $output .= "<h3>The contents of your bucket are:</h3>:";
       $output .= "<div class=\"grid-wrapper\">";
       
       if (isset($contents['Contents'])) {

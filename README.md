@@ -1,7 +1,7 @@
 # drupal-gallery
 
 Working:
-- Main page shows links to all albums
+- Main page shows links to all albums, sorted and headered by year
 - Albums show all photographs
 
 Not working:
