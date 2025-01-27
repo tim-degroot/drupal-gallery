@@ -161,9 +161,9 @@ class GalleryController extends ControllerBase {
           $output .= "<a href=\"$url\"><img src=\"$url\"/></a>";
               }
             }
-      $output .= "</div>"
-      $output .= "<script src=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/jquery.nanogallery2.min.js \"></script>"
-      $output .= "<link href=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/css/nanogallery2.min.css \" rel=\"stylesheet\">"
+      $output .= "</div>";
+      $output .= "<script src=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/jquery.nanogallery2.min.js \"></script>";
+      $output .= "<link href=\" https://cdn.jsdelivr.net/npm/nanogallery2@3.0.5/dist/css/nanogallery2.min.css \" rel=\"stylesheet\">";
       // Return the output as a renderable array
       return [
         '#markup' => $output,
