@@ -266,9 +266,10 @@ private function photoPage($s3, $bucket, $prefix) {
   if (isset($contents['Contents'])) {
     foreach ($contents['Contents'] as $content) {
       $key = htmlspecialchars($content['Key']);
-      $key = str_replace('photos/', '', $key);
-      $url = "https://ik.imagekit.io/azqbjyakf/" . $key;
-      // $url = $s3->getObjectUrl($bucket, $key);
+      // $key = str_replace('photos/', '', $key);
+      // $url = "https://ik.imagekit.io/azqbjyakf/" . $key;
+      $url = $s3->getObjectUrl($bucket, $key);
+      // $url = "http://img.acdweb.nl/" . $url
       // $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
       if (substr($url, -1) !== '/') {
         $output[] = $url;
