@@ -156,7 +156,7 @@ class TentamenbankController extends ControllerBase {
           $key = htmlspecialchars($content['Key']);
           $splitKey = explode('/', trim($key, '/'));
           $lastElement = end($splitKey);
-          $output .= $lastElement;
+          $output .= $lastElement . '<br>';
       }
     
 
