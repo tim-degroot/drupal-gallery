@@ -1,12 +1,3 @@
-# s3_gallery.photos_main:
-#   path: '/photos'
-#   defaults:
-#     _controller: '\Drupal\s3_gallery\Controller\GalleryController::mainPage'
-#     _title_callback: '\Drupal\s3_gallery\Controller\GalleryController::getTitle'
-#     _title: 'Main Photo Gallery'
-#   requirements:
-#     _permission: 'access content'
-
 s3_gallery.photos_gallery:
   path: '/photos/{prefix}'
   defaults:
@@ -22,17 +13,9 @@ s3_gallery.photos_gallery:
         type: 'string'
         default: ''
 
-# s3_gallery.tentamenbank_main:
-#   path: '/tentamenbank'
-#   defaults:
-#     _controller: '\Drupal\s3_gallery\Controller\TentamenbankController::mainPage'
-#     _title_callback: '\Drupal\s3_gallery\Controller\TentamenbankController::getTitle'
-#     _title: 'Tentamenbank'
-#   requirements:
-#     _permission: 'access content'
 
 s3_gallery.tentamenbank_subject:
-  path: '/tentamenbank/{prefix}'
+  path: '/tentamenbank/{study}/{subject}'
   defaults:
     _controller: '\Drupal\s3_gallery\Controller\TentamenbankController::myPage'
     _title_callback: '\Drupal\s3_gallery\Controller\TentamenbankController::getTitle'

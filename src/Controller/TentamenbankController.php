@@ -21,7 +21,7 @@ class TentamenbankController extends ControllerBase {
    * @return string
    *   The title for the gallery page.
    */
-  public function getTitle($prefix = '') {
+  public function getTitle($study = '', $subject = '') {
     if (empty($prefix)) {
       return 'Tentamenbank';
     }
