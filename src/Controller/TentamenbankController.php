@@ -84,11 +84,12 @@ class TentamenbankController extends ControllerBase {
       $output .= "<ul>";
       if (isset($contents['CommonPrefixes'])) {
         foreach ($contents['CommonPrefixes'] as $commonPrefix) {
-          $prefix = htmlspecialchars($commonPrefix['Prefix']);
-          $splitPrefix = explode('/', trim($prefix, '/'));
-          array_shift($splitPrefix); // remove the first entry
-          $url = "/photos/" . implode('/', $splitPrefix);
-          $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
+        $output .= $commonPrefix
+        //   $prefix = htmlspecialchars($commonPrefix['Prefix']);
+        //   $splitPrefix = explode('/', trim($prefix, '/'));
+        //   array_shift($splitPrefix); // remove the first entry
+        //   $url = "/photos/" . implode('/', $splitPrefix);
+        //   $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
         }
       }
       $output .= "</ul>";
