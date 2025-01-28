@@ -101,7 +101,7 @@ class TentamenbankController extends ControllerBase {
       
       
       return [
-        $output;
+        '#markup' => $output
     ];
     } catch (\Exception $e) {
       // Debugging information
