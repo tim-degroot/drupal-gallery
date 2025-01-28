@@ -86,7 +86,7 @@ class TentamenbankController extends ControllerBase {
    * @return array
    *   A renderable array.
    */
-  public function myPage($prefix = '') {
+  public function myPage($study = '', $subject = '') {
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
