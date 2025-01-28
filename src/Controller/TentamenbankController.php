@@ -75,7 +75,9 @@ class TentamenbankController extends ControllerBase {
       $output .= "<ul>";
       if (isset($contents['Contents'])) {
         foreach ($contents['Contents'] as $content) {
-          $output .= "<li>" . htmlspecialchars($content['Key']) . "</li>";
+            $key = htmlspecialchars($content['Key']);
+            $strippedKey = substr($key, 0, strrpos($key, '/'));
+            $output .= "<li>" . $strippedKey . "</li>";
         }
       }
       $output .= "</ul>";
