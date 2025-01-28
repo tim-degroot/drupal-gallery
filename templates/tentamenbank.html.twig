@@ -1,0 +1,30 @@
+<div class="row mb-3">
+    <div class="col-auto">
+        <div class="btn-group" role="group" aria-label="Study Level">
+            <button type="button" class="btn btn-outline-primary" onclick="filterTable('Bachelor', this)">Bachelor</button>
+            <button type="button" class="btn btn-outline-primary" onclick="filterTable('Master', this)">Master</button>
+            <button type="button" class="btn btn-outline-primary" onclick="filterTable('Pre-master', this)">Pre-master</button>
+        </div>
+    </div>
+    <div class="col">
+        <input type="text" id="search" placeholder="Search..." class="form-control">
+    </div>
+</div>
+
+<table id="subjects" class="table table-hover style="width:100%">
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Study</th>
+            <th>URL</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subject in subjects %}
+        <tr onclick="window.location='{{ subject.url }}';" style="cursor:pointer;">
+            <td>{{ subject.name }}</td>
+            <td>{{ subject.study }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

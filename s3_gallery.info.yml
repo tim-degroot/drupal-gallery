@@ -1,5 +1,5 @@
-name: AWS S3 Gallery
-description: Creates an image gallery from a S3 bucket.
+name: Amsterdams Chemisch Dispuut
+description: Several utilities and custom pages for acdweb.nl.
 package: Custom
 
 type: module
