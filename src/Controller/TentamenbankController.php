@@ -154,7 +154,9 @@ class TentamenbankController extends ControllerBase {
     if (isset($contents['Contents'])) {
       foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
-          $output .= $key;
+          $splitKey = explode('/', trim($key, '/'));
+          $lastElement = end($splitKey);
+          $output .= $lastElement;
       }
     
 
