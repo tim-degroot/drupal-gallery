@@ -156,21 +156,32 @@ class GalleryController extends ControllerBase {
 
       if ($prefix == 'photos/') {
         $output = $this->homePage($s3, $bucket);
+        return [
+          '#markup' => $output,
+          'css' => [
+            'theme' => [
+                'css/custom.css' => [],
+            ],
+          ],
+          
+        ];
+
       } else {
         $output = $this->photoPage($s3, $bucket, $prefix);
+        return [
+          '#markup' => $output,
+          'css' => [
+            'theme' => [
+                'css/custom.css' => [],
+            ],
+          ],
+          
+        ];
       }
 
       // Print the current prefi
       
-      return [
-        '#markup' => $output,
-        'css' => [
-          'theme' => [
-              'css/custom.css' => [],
-          ],
-        ],
-        
-      ];
+      
     } catch (\Exception $e) {
       // Debugging information
       \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);
