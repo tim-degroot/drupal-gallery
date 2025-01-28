@@ -163,7 +163,7 @@ class TentamenbankController extends ControllerBase {
 
           if (preg_match('/^(\d{4}-\d{2}-\d{2})_(.*)_(.*)\.pdf$/', $lastElement, $matches)) {
             $date = date_create(implode('', explode('-', $matches[1])));
-            $sorting = $date->format('Y-m-d')
+            $sorting = $date->format('Y-m-d');
             $date = $date->format('d M Y');
             $type = $matches[2];
             $title = $matches[3];
