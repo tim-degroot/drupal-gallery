@@ -7,13 +7,13 @@ function s3_gallery_theme($existing, $type, $theme, $path) {
   return [
     'tentamenbank_subject' => [
       'variables' => [
-        'subjects' => [],
+        'exams' => [],
       ],
       'template' => 'tentamenbank-subject',
     ],
     'tentamenbank' => [
       'variables' => [
-        'studies' => [],
+        'subjects' => [],
       ],
       'template' => 'tentamenbank',
     ],
