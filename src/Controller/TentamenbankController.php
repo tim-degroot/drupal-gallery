@@ -22,18 +22,7 @@ class TentamenbankController extends ControllerBase {
    *   The title for the gallery page.
    */
   public function getTitle($study = '', $subject = '') {
-    if (empty($prefix)) {
-      return 'Tentamenbank';
-    }
-    // $date = date_create(substr($prefix, 0, 8));
-    // $title = substr($prefix, 8);
-    // // $month = substr($displayText, 0, 2);
-    // // $day = substr($displayText, 2, 2);
-    // // $placeholder = substr($displayText, 4); // Extract the rest of the string
-    
-    // // Reformat to DD/MM {Placeholder}
-    // $displayText = date_format($date, "D j M Y") . " —" . $title;
-    return $prefix;
+    return 'Tentamens ' . $subject;
   }
 
   /**
