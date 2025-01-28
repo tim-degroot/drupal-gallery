@@ -56,7 +56,7 @@ class TentamenbankController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'photos/';
+      $prefix = 'tentamenbank/';
 
       // Print the current prefix
 
