@@ -102,11 +102,12 @@ class TentamenbankController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      $output = $this->tentamensPage($contents);
+      $exams = $this->tentamensPage($contents);
       
       
       return [
-        '#markup' => $output,
+        '#theme' => 'tentamenbank_subjects',
+        '#exams' => $exams,
         '#attached' => [
           'library' => [
             's3_gallery/tentamenbank',
@@ -152,20 +153,35 @@ class TentamenbankController extends ControllerBase {
   }
 
   private function tentamensPage($contents) {
-    $output = '';
+    $exams = [];
 
     if (isset($contents['Contents'])) {
       foreach ($contents['Contents'] as $content) {
           $key = htmlspecialchars($content['Key']);
           $splitKey = explode('/', trim($key, '/'));
           $lastElement = end($splitKey);
-          $output .= $lastElement . '<br>';
+
+          if (preg_match('/^(\d{4}-\d{2}-\d{2})_(.*)_(.*)\.pdf$/', $lastElement, $matches)) {
+            $date = $matches[1];
+            $type = $matches[2];
+            $title = $matches[3];
+
+            if (!isset($exams[$date])) {
+              $exams[$date] = [
+                  'date' => $date,
+                  'type' => $type,
+                  'questions' => '',
+                  'answers' => '',
+              ];
+          }
+          if ($type == 'Answers') {
+              $exams[$date]['answers'] = $key;
+          } else {
+              $exams[$date]['questions'] = $key;
+          }
       }
-    
-
-
   }
-
-  return $output;
+  return $exams;
+  }
 }
 }
