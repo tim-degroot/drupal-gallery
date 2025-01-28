@@ -184,9 +184,9 @@ class TentamenbankController extends ControllerBase {
       }
   }
 
-  usort($exams, function($b, $a) {
-    return strcmp($a['date'], $b['date']);
-  });
+  ksort($exams);
+  
+
 
   return $exams;
   }
