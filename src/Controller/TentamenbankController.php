@@ -171,7 +171,7 @@ class TentamenbankController extends ControllerBase {
             if (!isset($exams[$date])) {
               $exams[$date] = [
                   'sorting' => $sorting,
-                  'date' => $date->format('d M Y'),
+                  'date' => $date,
                   'type' => '',
                   'questions' => '',
                   'answers' => '',
