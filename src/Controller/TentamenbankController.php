@@ -58,59 +58,12 @@ class TentamenbankController extends ControllerBase {
       $bucket = 'acdweb-storage';
       $prefix = 'tentamenbank/';
 
-      // Print the current prefix
-
-      // List objects in the specified prefix
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
-        // 'Delimiter' => '/', // Ensure only direct children are listed
       ]);
 
-      $output = "";
 
-      $output .= "<h3>Contents raw:</h3>";
-      $output .= $contents;
-      $output .= "<h3>The contents of your bucket are:</h3>";
-      $output .= "<ul>";
-      if (isset($contents['Contents'])) {
-        $uniqueKeys = [];
-        foreach ($contents['Contents'] as $content) {
-            $key = htmlspecialchars($content['Key']);
-            $strippedKey = substr($key, 0, strrpos($key, '/'));
-    
-            if (!in_array($strippedKey, $uniqueKeys)) {
-                $uniqueKeys[] = $strippedKey;
-    
-                $splitKey = explode('/', trim($strippedKey, '/'));
-                if (count($splitKey) >= 3) {
-                    $study = $splitKey[1];
-                    $subject = $splitKey[2];
-                    $url = "/tentamenbank/" . $study . "/" . $subject;
-                    $output .= "<li>Study: $study, Subject: $subject, URL: <a href=\"$url\">$url</a></li>";
-                }
-            }
-        }
-    }
-      $output .= "</ul>";
-
-    //   $output .= "<h3>The CommonPrefixes are:</h3>";
-    //   $output .= "<ul>";
-    //   if (isset($contents['CommonPrefixes'])) {
-    //     foreach ($contents['CommonPrefixes'] as $commonPrefix) {
-    //         $prefix = htmlspecialchars($commonPrefix['Prefix']);
-    //         $splitPrefix = explode('/', trim($prefix, '/'));
-            
-    //         // Assuming the structure is tentamenbank/Study/Subject/
-    //         if (count($splitPrefix) >= 3) {
-    //             $study = $splitPrefix[1];
-    //             $subject = $splitPrefix[2];
-    //             $output .= "<li>Study: $study, Subject: $subject</li>";
-    //         }
-    //         $url = "/tentamenbank/" . $study . "/" . $subject;
-    //     }
-    //   }
-    //   $output .= "</ul>";
 
       return [
         '#markup' => $output,
@@ -147,51 +100,13 @@ class TentamenbankController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'photos/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
-      // $expires = '+10 minutes';
-
-      // Print the current prefix
-      $output = "";
-      // $output .= "<h3>Current prefix: " . htmlspecialchars($prefix) . "</h3>";
-
-      // List objects in the specified prefix
-      $contents = $s3->listObjectsV2([
-        'Bucket' => $bucket,
-        'Prefix' => $prefix,
-      ]);
-
-      // $albums = $s3->listObjectsV2([
-      //   'Bucket' => $bucket,
-      //   'Prefix' => $prefix,
-      //   'Delimiter' => '/',
-      // ]);
-
-      // $output .= "<h3>The CommonPrefixes are:</h3>";
-      // $output .= "<ul>";
-      // if (isset($albums['CommonPrefixes'])) {
-      //   foreach ($albums['CommonPrefixes'] as $commonPrefix) {
-      //     $prefix = htmlspecialchars($commonPrefix['Prefix']);
-      //     $splitPrefix = explode('/', trim($prefix, '/'));
-      //     array_shift($splitPrefix); // remove the first entry
-      //     $url = "/photos/" . implode('/', $splitPrefix);
-      //     $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
-      //   }
-      // }
-      // $output .= "</ul>";
-      // $output .= "<h3>The contents of your bucket are:</h3>:";
-      $output .= "<div class=\"grid-wrapper\">";
+      $prefix = 'tentamenbank/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
       
-      if (isset($contents['Contents'])) {
-        foreach ($contents['Contents'] as $content) {
-          $key = htmlspecialchars($content['Key']);
-          $url = $s3->getObjectUrl($bucket, $key);
-          // $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
-          if (substr($url, -1) !== '/') {
-          $output .= "<div style=\" max-width: 400px; loading=\"lazy\"\"><img src=\"$url\"/></div>";
-          }
-        }
+      if ($prefix == 'tentamenbank/') {
+        $output = $this->homePage($content);
+      } else {
+        $output = $this->tentamensPage($content);
       }
-      $output .= "</div>";
       
       return [
         '#markup' => $output,
@@ -209,5 +124,34 @@ class TentamenbankController extends ControllerBase {
         '#markup' => "Error: " . $e->getMessage(),
       ];
     }
+  }
+
+  private function homePage($contents) { 
+    $output = "";
+
+      $output .= "<h3>Contents raw:</h3>";
+      $output .= $contents;
+      $output .= "<h3>The contents of your bucket are:</h3>";
+      $output .= "<ul>";
+      if (isset($contents['Contents'])) {
+        $uniqueKeys = [];
+        foreach ($contents['Contents'] as $content) {
+            $key = htmlspecialchars($content['Key']);
+            $strippedKey = substr($key, 0, strrpos($key, '/'));
+    
+            if (!in_array($strippedKey, $uniqueKeys)) {
+                $uniqueKeys[] = $strippedKey;
+    
+                $splitKey = explode('/', trim($strippedKey, '/'));
+                if (count($splitKey) >= 3) {
+                    $study = $splitKey[1];
+                    $subject = $splitKey[2];
+                    $url = "/tentamenbank/" . $study . "/" . $subject;
+                    $output .= "<li>Study: $study, Subject: $subject, URL: <a href=\"$url\">$url</a></li>";
+                }
+            }
+        }
+    }
+      $output .= "</ul>";
   }
 }
