@@ -93,7 +93,7 @@ class TentamenbankController extends ControllerBase {
       $prefix = 'tentamenbank/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
-        'Prefix' => $prefix,
+        'Prefix' => $study . '/' . $subject,
       ]);
 
       $output = $this->tentamensPage($contents);
