@@ -90,10 +90,10 @@ class TentamenbankController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'tentamenbank/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
+      $prefix = 'tentamenbank/' . urldecode($study) . '/' . urldecode($subject); // Ensure 'photos/' is prefixed and decode the prefix
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
-        'Prefix' => $study . '/' . $subject,
+        'Prefix' => $prefix,
       ]);
 
       $output = $this->tentamensPage($contents);
