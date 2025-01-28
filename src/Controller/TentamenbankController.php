@@ -118,10 +118,7 @@ class TentamenbankController extends ControllerBase {
   }
 
   private function homePage($contents) { 
-    $output = "";
-
-      $output .= "<h3>Contents raw:</h3>";
-      $output .= $contents;
+      $output = "";
       $output .= "<h3>The contents of your bucket are:</h3>";
       $output .= "<ul>";
       if (isset($contents['Contents'])) {
