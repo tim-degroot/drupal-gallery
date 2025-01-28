@@ -22,7 +22,7 @@ class TentamenbankController extends ControllerBase {
    *   The title for the gallery page.
    */
   public function getTitle($study = '', $subject = '') {
-    return 'Tentamens ' . $subject;
+    return $subject;
   }
 
   /**
@@ -149,6 +149,16 @@ class TentamenbankController extends ControllerBase {
   }
 
   private function tentamensPage($contents) {
-     
+    $output = '';
+
+    if (isset($contents['Contents'])) {
+      foreach ($contents['Contents'] as $content) {
+          $key = htmlspecialchars($content['Key']);
+          $output .= $key;
+      }
+    return $output;
+
+
   }
+}
 }
