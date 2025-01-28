@@ -156,9 +156,11 @@ class TentamenbankController extends ControllerBase {
           $key = htmlspecialchars($content['Key']);
           $output .= $key;
       }
-    return $output;
+    
 
 
   }
+
+  return $output;
 }
 }
