@@ -17,6 +17,12 @@ function s3_gallery_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'tentamenbank',
     ],
+    'album' => [
+      'variables' => [
+        'images' => [],
+      ],
+      'template' => 'album',
+    ],
   ];
 }
 ?>

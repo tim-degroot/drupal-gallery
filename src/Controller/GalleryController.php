@@ -169,6 +169,15 @@ class GalleryController extends ControllerBase {
       } else {
         $output = $this->photoPage($s3, $bucket, $prefix);
         return [
+          '#theme' => 'album',
+          '#photos' => $output,
+          '#attached' => [
+            'library' => [
+              's3_gallery/fslightbox',
+            ],
+          ],
+        ];
+        return [
           '#markup' => $output,
           'css' => [
             'theme' => [
@@ -248,48 +257,22 @@ class GalleryController extends ControllerBase {
   }
 
 private function photoPage($s3, $bucket, $prefix) { 
-  $output = "";
-      // $output .= "<h3>Current prefix: " . htmlspecialchars($prefix) . "</h3>";
+  $images = [];
+  $contents = $s3->listObjectsV2([
+    'Bucket' => $bucket,
+    'Prefix' => $prefix,
+  ]);
 
-      // List objects in the specified prefix
-      $contents = $s3->listObjectsV2([
-        'Bucket' => $bucket,
-        'Prefix' => $prefix,
-      ]);
-
-      // $albums = $s3->listObjectsV2([
-      //   'Bucket' => $bucket,
-      //   'Prefix' => $prefix,
-      //   'Delimiter' => '/',
-      // ]);
-
-      // $output .= "<h3>The CommonPrefixes are:</h3>";
-      // $output .= "<ul>";
-      // if (isset($albums['CommonPrefixes'])) {
-      //   foreach ($albums['CommonPrefixes'] as $commonPrefix) {
-      //     $prefix = htmlspecialchars($commonPrefix['Prefix']);
-      //     $splitPrefix = explode('/', trim($prefix, '/'));
-      //     array_shift($splitPrefix); // remove the first entry
-      //     $url = "/photos/" . implode('/', $splitPrefix);
-      //     $output .= "<li><a href=\"$url\">" . implode(' > ', $splitPrefix) . "</a></li>";
-      //   }
-      // }
-      // $output .= "</ul>";
-      // $output .= "<h3>The contents of your bucket are:</h3>:";
-      $output .= "<div class=\"grid-wrapper\">";
-      
-      if (isset($contents['Contents'])) {
-        foreach ($contents['Contents'] as $content) {
-          $key = htmlspecialchars($content['Key']);
-          $url = $s3->getObjectUrl($bucket, $key);
-          // $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
-          if (substr($url, -1) !== '/') {
-          $output .= "<div style=\" max-width: 400px; loading=\"lazy\"\"><img src=\"$url\"/></div>";
-          }
-        }
+  if (isset($contents['Contents'])) {
+    foreach ($contents['Contents'] as $content) {
+      $key = htmlspecialchars($content['Key']);
+      $url = $s3->getObjectUrl($bucket, $key);
+      // $output .= "<li><img src=\"$url\" alt=\"$key\" style=\"max-width: 200px;\" /></li>";
+      if (substr($url, -1) !== '/') {
+        $output[] = $url;
       }
-      $output .= "</div>";
-
-      return $output;
+    }
+  }
+  return $output;
 }
 }
