@@ -56,12 +56,13 @@ class TentamenbankController extends ControllerBase {
       ]);
 
       $bucket = 'acdweb-storage';
-      $prefix = 'tentamenbank/';
-
+      $prefix = 'tentamenbank/' . urldecode($prefix); // Ensure 'photos/' is prefixed and decode the prefix
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
       ]);
+
+      $output = $this->homePage($contents);
 
 
 
@@ -106,11 +107,8 @@ class TentamenbankController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      if ($prefix == 'tentamenbank/') {
-        $output = $this->homePage($contents);
-      } else {
-        $output = $this->tentamensPage($contents);
-      }
+      $output = $this->tentamensPage($contents);
+      
       
       return [
         '#markup' => $output,
