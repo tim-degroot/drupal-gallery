@@ -7,3 +7,10 @@ fslightbox:
       css/custom.css: {}
   dependencies:
     - core/jquery
+
+tentamenbank:
+  version: 1.x
+  js:
+    js/tentamenbank.js: {}
+  dependencies:
+    - core/jquery

@@ -58,6 +58,11 @@ class TentamenbankController extends ControllerBase {
       return [
         '#theme' => 'tentamenbank',
         '#subjects' => $result,
+        '#attached' => [
+          'library' => [
+            's3_gallery/tentamenbank',
+          ],
+        ],
       ];
     } catch (\Exception $e) {
       // Debugging information
@@ -101,8 +106,13 @@ class TentamenbankController extends ControllerBase {
       
       
       return [
-        '#markup' => $output
-    ];
+        '#markup' => $output,
+        '#attached' => [
+          'library' => [
+            's3_gallery/tentamenbank',
+          ],
+        ],
+      ];
     } catch (\Exception $e) {
       // Debugging information
       \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);
