@@ -23,17 +23,17 @@ class TentamenbankController extends ControllerBase {
    */
   public function getTitle($prefix = '') {
     if (empty($prefix)) {
-      return 'Photo Gallery';
+      return 'Tentamenbank';
     }
-    $date = date_create(substr($prefix, 0, 8));
-    $title = substr($prefix, 8);
-    // $month = substr($displayText, 0, 2);
-    // $day = substr($displayText, 2, 2);
-    // $placeholder = substr($displayText, 4); // Extract the rest of the string
+    // $date = date_create(substr($prefix, 0, 8));
+    // $title = substr($prefix, 8);
+    // // $month = substr($displayText, 0, 2);
+    // // $day = substr($displayText, 2, 2);
+    // // $placeholder = substr($displayText, 4); // Extract the rest of the string
     
-    // Reformat to DD/MM {Placeholder}
-    $displayText = date_format($date, "D j M Y") . " —" . $title;
-    return $displayText;
+    // // Reformat to DD/MM {Placeholder}
+    // $displayText = date_format($date, "D j M Y") . " —" . $title;
+    return $prefix;
   }
 
   /**
@@ -153,5 +153,9 @@ class TentamenbankController extends ControllerBase {
         }
     }
       $output .= "</ul>";
+  }
+
+  private function tentamensPage($contents) {
+     
   }
 }
