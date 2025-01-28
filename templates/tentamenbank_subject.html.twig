@@ -12,8 +12,20 @@
         <tr>
             <th scope="row">{{ exam.type }}</td>
             <td>{{ exam.date }}</td>
-            <td>{{ exam.questions }}</td>
-            <td>{{ exam.answers }}</td>
+            <td>
+          {% if exam.questions %}
+            <a href="{{ exam.questions }}" class="btn btn-primary">Questions</a>
+          {% else %}
+            <a class="btn btn-outline-primary">Questions</a>
+          {% endif %}
+        </td>
+        <td>
+          {% if exam.answers %}
+            <a href="{{ exam.answers }}" class="btn btn-primary">Answers</a>
+          {% else %}
+            <a class="btn btn-outline-primary">Answers</a>
+          {% endif %}
+        </td>
         </tr>
         {% endfor %}
     </tbody>
