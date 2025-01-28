@@ -22,7 +22,7 @@
     <tbody>
         {% for subject in subjects %}
         <tr onclick="window.location='{{ subject.url }}';" style="cursor:pointer;">
-            <td>{{ subject.name }}</td>
+            <td>{{ subject.subject }}</td>
             <td>{{ subject.study }}</td>
         </tr>
         {% endfor %}
