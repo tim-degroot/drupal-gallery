@@ -56,7 +56,8 @@ class TentamenbankController extends ControllerBase {
 
 
       return [
-        '#markup' => $output,
+        '#theme' => 'tentamenbank_subject',
+        '#subjects' => $result,
       ];
     } catch (\Exception $e) {
       // Debugging information
@@ -96,12 +97,11 @@ class TentamenbankController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      $result = $this->tentamensPage($contents);
+      $output = $this->tentamensPage($contents);
       
       
       return [
-        '#theme' => 'tentamenbank_subject',
-        '#subjects' => $result,
+        $output;
     ];
     } catch (\Exception $e) {
       // Debugging information
