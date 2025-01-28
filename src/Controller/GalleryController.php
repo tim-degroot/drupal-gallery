@@ -170,7 +170,7 @@ class GalleryController extends ControllerBase {
         $output = $this->photoPage($s3, $bucket, $prefix);
         return [
           '#theme' => 'album',
-          '#photos' => $output,
+          '#images' => $output,
           '#attached' => [
             'library' => [
               's3_gallery/fslightbox',
