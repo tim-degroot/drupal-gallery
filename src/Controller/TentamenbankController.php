@@ -157,6 +157,8 @@ class TentamenbankController extends ControllerBase {
         }
     }
       $output .= "</ul>";
+
+      return $output;
   }
 
   private function tentamensPage($contents) {
