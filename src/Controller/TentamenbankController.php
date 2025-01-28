@@ -118,9 +118,7 @@ class TentamenbankController extends ControllerBase {
   }
 
   private function homePage($contents) { 
-      $output = "";
-      $output .= "<h3>The contents of your bucket are:</h3>";
-      $output .= "<ul>";
+    $result = [];
       if (isset($contents['Contents'])) {
         $uniqueKeys = [];
         foreach ($contents['Contents'] as $content) {
@@ -135,14 +133,17 @@ class TentamenbankController extends ControllerBase {
                     $study = $splitKey[1];
                     $subject = $splitKey[2];
                     $url = "/tentamenbank/" . $study . "/" . $subject;
-                    $output .= "<li>Study: $study, Subject: $subject, URL: <a href=\"$url\">$url</a></li>";
+                    $result[] = [
+                        'study' => $study,
+                        'subject' => $subject,
+                        'url' => $url,
+                    ];
                 }
             }
         }
     }
-      $output .= "</ul>";
 
-      return $output;
+      return $result;
   }
 
   private function tentamensPage($contents) {
