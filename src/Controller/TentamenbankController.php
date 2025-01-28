@@ -163,13 +163,14 @@ class TentamenbankController extends ControllerBase {
 
           if (preg_match('/^(\d{4}-\d{2}-\d{2})_(.*)_(.*)\.pdf$/', $lastElement, $matches)) {
             $date = date_create(implode('', explode('-', $matches[1])));
-            $date = $date->format('YMd');
+            $date = $date
             $type = $matches[2];
             $title = $matches[3];
 
             if (!isset($exams[$date])) {
               $exams[$date] = [
-                  'date' => $date,
+                  'sorting' => $date->format('YMd'),
+                  'date' => $date->format('d M Y'),
                   'type' => '',
                   'questions' => '',
                   'answers' => '',
@@ -182,18 +183,11 @@ class TentamenbankController extends ControllerBase {
               $exams[$date]['type'] = $type;
           }
 
-          foreach ($exams as &$exam) {
-            $originalDate = date_create($exam['date']);
-            echo $originalDate;
-            if ($originalDate) {
-                $exam['date'] = $originalDate->format('d M Y');
-            }
-        }
-        unset($exam);
+          
       }
   }
 
-  krsort($exams);
+  krsort($sorting);
 
 
   
