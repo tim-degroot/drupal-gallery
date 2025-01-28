@@ -105,11 +105,11 @@ class TentamenbankController extends ControllerBase {
         'Bucket' => $bucket,
         'Prefix' => $prefix,
       ]);
-      
+
       if ($prefix == 'tentamenbank/') {
-        $output = $this->homePage($content);
+        $output = $this->homePage($contents);
       } else {
-        $output = $this->tentamensPage($content);
+        $output = $this->tentamensPage($contents);
       }
       
       return [
