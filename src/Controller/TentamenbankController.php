@@ -77,28 +77,36 @@ class TentamenbankController extends ControllerBase {
         foreach ($contents['Contents'] as $content) {
             $key = htmlspecialchars($content['Key']);
             $strippedKey = substr($key, 0, strrpos($key, '/'));
-            $output .= "<li>" . $strippedKey . "</li>";
+
+            $splitKey = explode('/', trim($strippedKey, '/'))
+            if (count($splitKey) >= 3) {
+                $study = $splitKey[1];
+                $subject = $splitKey[2];
+                $output .= "<li>Study: $study, Subject: $subject</li>";
+            }
+            $url = "/tentamenbank/" . $study . "/" . $subject;
+            $output .= "<li>" . $study . $subject . $output . $url . "</li>";
         }
       }
       $output .= "</ul>";
 
-      $output .= "<h3>The CommonPrefixes are:</h3>";
-      $output .= "<ul>";
-      if (isset($contents['CommonPrefixes'])) {
-        foreach ($contents['CommonPrefixes'] as $commonPrefix) {
-            $prefix = htmlspecialchars($commonPrefix['Prefix']);
-            $splitPrefix = explode('/', trim($prefix, '/'));
+    //   $output .= "<h3>The CommonPrefixes are:</h3>";
+    //   $output .= "<ul>";
+    //   if (isset($contents['CommonPrefixes'])) {
+    //     foreach ($contents['CommonPrefixes'] as $commonPrefix) {
+    //         $prefix = htmlspecialchars($commonPrefix['Prefix']);
+    //         $splitPrefix = explode('/', trim($prefix, '/'));
             
-            // Assuming the structure is tentamenbank/Study/Subject/
-            if (count($splitPrefix) >= 3) {
-                $study = $splitPrefix[1];
-                $subject = $splitPrefix[2];
-                $output .= "<li>Study: $study, Subject: $subject</li>";
-            }
-            $url = "/tentamenbank/" . $study . "/" . $subject;
-        }
-      }
-      $output .= "</ul>";
+    //         // Assuming the structure is tentamenbank/Study/Subject/
+    //         if (count($splitPrefix) >= 3) {
+    //             $study = $splitPrefix[1];
+    //             $subject = $splitPrefix[2];
+    //             $output .= "<li>Study: $study, Subject: $subject</li>";
+    //         }
+    //         $url = "/tentamenbank/" . $study . "/" . $subject;
+    //     }
+    //   }
+    //   $output .= "</ul>";
 
       return [
         '#markup' => $output,
