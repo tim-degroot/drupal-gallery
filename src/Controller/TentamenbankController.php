@@ -96,18 +96,13 @@ class TentamenbankController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      $output = $this->tentamensPage($contents);
+      $result = $this->tentamensPage($contents);
       
       
       return [
-        '#markup' => $output,
-        'css' => [
-          'theme' => [
-              'css/custom.css' => [],
-          ],
-        ],
-        
-      ];
+        '#theme' => 'tentamenbank_subject',
+        '#subjects' => $result,
+    ];
     } catch (\Exception $e) {
       // Debugging information
       \Drupal::logger('s3_gallery')->error('Error: @error', ['@error' => $e->getMessage()]);

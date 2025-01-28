@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function my_module_theme($existing, $type, $theme, $path) {
+  return [
+    'tentamenbank_subject' => [
+      'variables' => [
+        'subjects' => [],
+      ],
+      'template' => 'tentamenbank_subject',
+    ],
+  ];
+}
+?>
