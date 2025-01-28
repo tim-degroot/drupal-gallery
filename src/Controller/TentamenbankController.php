@@ -51,7 +51,7 @@ class TentamenbankController extends ControllerBase {
         'Prefix' => $prefix,
       ]);
 
-      $output = $this->homePage($contents);
+      $result = $this->homePage($contents);
 
 
 
