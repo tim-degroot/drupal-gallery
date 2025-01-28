@@ -74,21 +74,24 @@ class TentamenbankController extends ControllerBase {
       $output .= "<h3>The contents of your bucket are:</h3>";
       $output .= "<ul>";
       if (isset($contents['Contents'])) {
+        $uniqueKeys = [];
         foreach ($contents['Contents'] as $content) {
             $key = htmlspecialchars($content['Key']);
             $strippedKey = substr($key, 0, strrpos($key, '/'));
-
-            $splitKey = explode('/', trim($strippedKey, '/'));
-            if (count($splitKey) >= 3) {
-                $study = $splitKey[1];
-                $subject = $splitKey[2];
-                $output .= "<li>Study: $study, Subject: $subject</li>";
-                $url = "/tentamenbank/" . $study . "/" . $subject;
-                $output .= "<li>" . $study . $subject . $url . "</li>";
+    
+            if (!in_array($strippedKey, $uniqueKeys)) {
+                $uniqueKeys[] = $strippedKey;
+    
+                $splitKey = explode('/', trim($strippedKey, '/'));
+                if (count($splitKey) >= 3) {
+                    $study = $splitKey[1];
+                    $subject = $splitKey[2];
+                    $url = "/tentamenbank/" . $study . "/" . $subject;
+                    $output .= "<li>Study: $study, Subject: $subject, URL: <a href=\"$url\">$url</a></li>";
+                }
             }
-            
         }
-      }
+    }
       $output .= "</ul>";
 
     //   $output .= "<h3>The CommonPrefixes are:</h3>";
