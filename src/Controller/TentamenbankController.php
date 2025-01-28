@@ -84,7 +84,7 @@ class TentamenbankController extends ControllerBase {
       $output .= "<ul>";
       if (isset($contents['CommonPrefixes'])) {
         foreach ($contents['CommonPrefixes'] as $commonPrefix) {
-            prefix = htmlspecialchars($commonPrefix['Prefix']);
+            $prefix = htmlspecialchars($commonPrefix['Prefix']);
             $splitPrefix = explode('/', trim($prefix, '/'));
             
             // Assuming the structure is tentamenbank/Study/Subject/
