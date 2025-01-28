@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Provides route responses for the S3 Gallery module.
  */
-class GalleryController extends ControllerBase {
+class TentamenbankController extends ControllerBase {
 
   /**
    * Returns the title for the gallery pages.
