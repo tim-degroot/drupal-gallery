@@ -3,13 +3,19 @@
 /**
  * Implements hook_theme().
  */
-function my_module_theme($existing, $type, $theme, $path) {
+function s3_gallery_theme($existing, $type, $theme, $path) {
   return [
     'tentamenbank_subject' => [
       'variables' => [
         'subjects' => [],
       ],
-      'template' => 'tentamenbank_subject',
+      'template' => 'tentamenbank-subject',
+    ],
+    'tentamenbank' => [
+      'variables' => [
+        'studies' => [],
+      ],
+      'template' => 'tentamenbank',
     ],
   ];
 }

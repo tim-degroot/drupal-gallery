@@ -56,7 +56,7 @@ class TentamenbankController extends ControllerBase {
 
 
       return [
-        '#theme' => 'tentamenbank_subject',
+        '#theme' => 'tentamenbank',
         '#subjects' => $result,
       ];
     } catch (\Exception $e) {
