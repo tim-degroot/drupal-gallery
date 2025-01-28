@@ -235,7 +235,6 @@ class GalleryController extends ControllerBase {
     }
     return $output;
   }
-}
 
 private function photoPage($s3, $bucket, $prefix) { 
   $output = "";
@@ -281,4 +280,5 @@ private function photoPage($s3, $bucket, $prefix) {
       $output .= "</div>";
 
       return $output;
+}
 }
