@@ -183,6 +183,11 @@ class TentamenbankController extends ControllerBase {
           }
       }
   }
+
+  usort($exams, function($a, $b) {
+    return strcmp($a['date'], $b['date']);
+  });
+
   return $exams;
   }
 }
