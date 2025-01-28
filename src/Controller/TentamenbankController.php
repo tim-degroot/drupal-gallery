@@ -84,7 +84,7 @@ class TentamenbankController extends ControllerBase {
                 $subject = $splitKey[2];
                 $output .= "<li>Study: $study, Subject: $subject</li>";
                 $url = "/tentamenbank/" . $study . "/" . $subject;
-                $output .= "<li>" . $study . $subject . $output . $url . "</li>";
+                $output .= "<li>" . $study . $subject . $url . "</li>";
             }
             
         }
