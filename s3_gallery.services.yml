@@ -4,3 +4,5 @@ services:
     factory: ['Aws\S3\S3Client', 'factory']
   s3_gallery.gallery_controller:
     class: Drupal\s3_gallery\Controller\GalleryController
+  s3_gallery.tentamenbank_controller:
+    class: Drupal\s3_gallery\Controller\TentamenbankController
