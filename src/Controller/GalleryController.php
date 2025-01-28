@@ -183,7 +183,7 @@ class GalleryController extends ControllerBase {
   private function homePage($s3, $bucket) { 
     $contents = $s3->listObjectsV2([
       'Bucket' => $bucket,
-      'Prefix' => $prefix,
+      'Prefix' => 'photos/',
       'Delimiter' => '/',
     ]);
       $output = "";
