@@ -64,7 +64,7 @@ class TentamenbankController extends ControllerBase {
       $contents = $s3->listObjectsV2([
         'Bucket' => $bucket,
         'Prefix' => $prefix,
-        'Delimiter' => '/', // Ensure only direct children are listed
+        // 'Delimiter' => '/', // Ensure only direct children are listed
       ]);
 
       $output = "";
