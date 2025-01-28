@@ -106,7 +106,7 @@ class TentamenbankController extends ControllerBase {
       
       
       return [
-        '#theme' => 'tentamenbank_subjects',
+        '#theme' => 'tentamenbank_subject',
         '#exams' => $exams,
         '#attached' => [
           'library' => [
