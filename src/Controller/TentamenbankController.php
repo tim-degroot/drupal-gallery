@@ -78,7 +78,7 @@ class TentamenbankController extends ControllerBase {
             $key = htmlspecialchars($content['Key']);
             $strippedKey = substr($key, 0, strrpos($key, '/'));
 
-            $splitKey = explode('/', trim($strippedKey, '/'))
+            $splitKey = explode('/', trim($strippedKey, '/'));
             if (count($splitKey) >= 3) {
                 $study = $splitKey[1];
                 $subject = $splitKey[2];
