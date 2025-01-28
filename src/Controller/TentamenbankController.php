@@ -182,7 +182,7 @@ class TentamenbankController extends ControllerBase {
               $exams[$date]['type'] = $type;
           }
 
-          foreach ($exams as &$exam) {
+          foreach ($exams as $exam) {
             $originalDate = date_create($exam['date']);
             if ($originalDate) {
                 $exam['date'] = $originalDate->format('d M Y');
