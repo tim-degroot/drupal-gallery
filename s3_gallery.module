@@ -1,5 +1,10 @@
 <?php
+/**
+ * @file
+ * Contains theme and help hooks for the TARDIS module.
+ */
 
+ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_theme().
  */
