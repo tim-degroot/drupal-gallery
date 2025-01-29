@@ -4,6 +4,7 @@ var currentLevel = "";
 
 function filterTable(level, button) {
     currentLevel = level;
+    currentPage = 1; // Reset to first page on filter change
     applyFilters();
     updateButtonClasses(button);
     updatePagination();
@@ -20,9 +21,9 @@ function applyFilters() {
         var subject = rows[i].getElementsByTagName("td")[0].textContent.toLowerCase();
         if (study) {
             if ((study.textContent === currentLevel || currentLevel === "") && subject.indexOf(searchFilter) > -1) {
-                rows[i].style.display = "";
+                rows[i].dataset.visible = "true";
             } else {
-                rows[i].style.display = "none";
+                rows[i].dataset.visible = "false";
             }
         }
     }
@@ -42,20 +43,22 @@ function updatePagination() {
     var table, rows, i;
     table = document.getElementById("subjects");
     rows = table.getElementsByTagName("tr");
-    var totalRows = Array.from(rows).filter(row => row.style.display !== "none").length - 1; // excluding header row
+    var visibleRows = Array.from(rows).filter(row => row.dataset.visible === "true");
+    var totalRows = visibleRows.length;
     var totalPages = Math.ceil(totalRows / rowsPerPage);
 
     document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
 
-    var visibleRowCount = 0;
     for (i = 1; i < rows.length; i++) {
-        if (rows[i].style.display !== "none") {
-            visibleRowCount++;
-            if (visibleRowCount > (currentPage - 1) * rowsPerPage && visibleRowCount <= currentPage * rowsPerPage) {
+        if (rows[i].dataset.visible === "true") {
+            var rowIndex = visibleRows.indexOf(rows[i]);
+            if (rowIndex >= (currentPage - 1) * rowsPerPage && rowIndex < currentPage * rowsPerPage) {
                 rows[i].style.display = "";
             } else {
                 rows[i].style.display = "none";
             }
+        } else {
+            rows[i].style.display = "none";
         }
     }
 
@@ -74,7 +77,8 @@ function nextPage() {
     var table, rows;
     table = document.getElementById("subjects");
     rows = table.getElementsByTagName("tr");
-    var totalRows = Array.from(rows).filter(row => row.style.display !== "none").length - 1; // excluding header row
+    var visibleRows = Array.from(rows).filter(row => row.dataset.visible === "true");
+    var totalRows = visibleRows.length;
     var totalPages = Math.ceil(totalRows / rowsPerPage);
 
     if (currentPage < totalPages) {
@@ -90,4 +94,5 @@ document.getElementById('search').addEventListener('input', function() {
 });
 
 // Initial pagination setup
+applyFilters();
 updatePagination();
