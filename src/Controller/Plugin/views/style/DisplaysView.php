@@ -17,8 +17,8 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  * @ingroup views_style_plugins
  *
  * @ViewsStyle(
- *   id = "tardis",
- *   title = @Translation("TARDIS"),
+ *   id = "displays",
+ *   title = @Translation("Displays"),
  *   help = @Translation("Render a list of years and months in reverse chronological order linked to content."),
  *   theme = "views_view_display",
  *   display_types = { "normal" }
@@ -32,7 +32,7 @@ class DisplaysView extends StylePluginBase {
    */
   protected function defineOptions() {
     $options = parent::defineOptions();
-    $options['path'] = ['default' => 'tardis'];
+    $options['path'] = ['default' => 'displays'];
     return $options;
   }
 
@@ -46,7 +46,7 @@ class DisplaysView extends StylePluginBase {
     $form['path'] = [
       '#type' => 'textfield',
       '#title' => t('Link path'),
-      '#default_value' => (isset($this->options['path'])) ? $this->options['path'] : 'tardis',
+      '#default_value' => (isset($this->options['path'])) ? $this->options['path'] : 'displays',
       '#description' => t('Path prefix for each TARDIS link, eg. example.com<strong>/tardis/</strong>1963/11.'),
     ];
 
@@ -105,7 +105,7 @@ class DisplaysView extends StylePluginBase {
     $form['classes'] = [
       '#type' => 'textfield',
       '#title' => t('CSS classes'),
-      '#default_value' => (isset($this->options['classes'])) ? $this->options['classes'] : 'view-tardis',
+      '#default_value' => (isset($this->options['classes'])) ? $this->options['classes'] : 'view-displays',
       '#description' => t('CSS classes for further customization of this TARDIS page.'),
     ];
   }
