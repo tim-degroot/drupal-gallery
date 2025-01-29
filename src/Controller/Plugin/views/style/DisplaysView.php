@@ -20,7 +20,7 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  *   id = "tardis",
  *   title = @Translation("TARDIS"),
  *   help = @Translation("Render a list of years and months in reverse chronological order linked to content."),
- *   theme = "views_view_tardis",
+ *   theme = "views_view_display",
  *   display_types = { "normal" }
  * )
  *
