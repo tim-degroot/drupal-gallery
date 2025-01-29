@@ -5,7 +5,7 @@
  * Definition of Drupal\tardis\Plugin\views\style\Tardis.
  */
 
-namespace Drupal\tardis\Plugin\views\style;
+namespace Drupal\s3_gallery\Plugin\views\style;
 
 use Drupal\core\form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
