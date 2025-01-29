@@ -40,7 +40,7 @@ function updateButtonClasses(button) {
 
 function updatePagination() {
     var table, rows, i;
-    table = document.getElementsByClassName("pagination");
+    table = document.getElementsById("subjects");
     rows = table.getElementsByTagName("tr");
     var totalRows = Array.from(rows).filter(row => row.style.display !== "none").length - 1; // excluding header row
     var totalPages = Math.ceil(totalRows / rowsPerPage);
