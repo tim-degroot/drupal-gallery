@@ -23,6 +23,9 @@ function s3_gallery_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'album',
     ],
+    'displays' => [
+      'file' => 's3_gallery.theme.inc',
+    ],
   ];
 };
 
@@ -37,17 +40,5 @@ function tardis_help($route_name, RouteMatchInterface $route_match) {
   }
 };
 
-// Store TARDIS preprocess theme functions in a separate .inc file.
-\Drupal::moduleHandler()->loadInclude('displays', 'inc', 's3_gallery.theme');
-
-/**
- * Implements hook_theme().
- */
-function displays_theme($existing, $type, $theme, $path) {
-  return [
-    'displays' => [
-      'file' => 's3_gallery.theme.inc',
-    ],
-  ];
-}
-?>
+// Ensure the module is loaded correctly
+\Drupal::moduleHandler()->loadInclude('s3_gallery', 'inc', 's3_gallery.theme');

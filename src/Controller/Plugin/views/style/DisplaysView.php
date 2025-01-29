@@ -25,7 +25,7 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  * )
  *
  */
-class DIsplaysView extends StylePluginBase {
+class DisplaysView extends StylePluginBase {
 
   /**
    * Set default options.
