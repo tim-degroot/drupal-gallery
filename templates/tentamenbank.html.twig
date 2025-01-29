@@ -11,14 +11,14 @@
     </div>
 </div>
 
-<table id="subjects" class="table table-hover style="width:100%">
+<table id="subjects" class="table table-hover" style="width:100%">
     <thead>
         <tr>
             <th>Subject</th>
             <th>Study</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="subjects-body">
         {% for subject in subjects %}
         <tr onclick="window.location='{{ subject.url }}';" style="cursor:pointer;">
             <td>{{ subject.subject }}</td>
@@ -27,3 +27,9 @@
         {% endfor %}
     </tbody>
 </table>
+
+<div class="pagination">
+    <button id="prevPage" class="btn btn-outline-primary" onclick="prevPage()">Previous</button>
+    <span id="pageInfo"></span>
+    <button id="nextPage" class="btn btn-outline-primary" onclick="nextPage()">Next</button>
+</div>
