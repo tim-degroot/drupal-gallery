@@ -2,12 +2,12 @@
 
 /**
  * @file
- * Definition of Drupal\tardis\Plugin\views\style\Tardis.
+ * Definition of Drupal\s3_gallery\Plugin\views\style\DisplaysView.
  */
 
 namespace Drupal\s3_gallery\Plugin\views\style;
 
-use Drupal\core\form\FormStateInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
 
 /**
@@ -23,7 +23,6 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  *   theme = "views_view_displays",
  *   display_types = { "normal" }
  * )
- *
  */
 class DisplaysView extends StylePluginBase {
 

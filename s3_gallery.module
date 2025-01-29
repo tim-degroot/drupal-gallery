@@ -27,18 +27,7 @@ function s3_gallery_theme($existing, $type, $theme, $path) {
       'file' => 's3_gallery.theme.inc',
     ],
   ];
-};
-
-function tardis_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    case 'help.page.displays':
-      $output = '';
-      $output .= '<h2>' . t('TARDIS Views display plugin') . '</h2>';
-      $output .= '<h3>' . t('Instructions') . '</h3>';
-      $output .= '<p>' . t('After enabling the module, edit any view you like and change its display type to <em>TARDIS</em> under <em>Format</em>.') . '</p>';
-
-  }
-};
+}
 
 // Ensure the module is loaded correctly
 \Drupal::moduleHandler()->loadInclude('s3_gallery', 'inc', 's3_gallery.theme');
