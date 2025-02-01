@@ -31,7 +31,17 @@
 </table>
 
 <div class="pagination">
-    <button id="prevPage" class="btn btn-outline-primary" onclick="prevPage()">Previous</button>
-    <span id="pageInfo" class="input-group-text"></span>
-    <button id="nextPage" class="btn btn-outline-primary" onclick="nextPage()">Next</button>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" id="prevPage" onclick="prevPage()">Previous</a>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link" id="pageInfo"></span>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" id="nextPage" onclick="nextPage()">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>

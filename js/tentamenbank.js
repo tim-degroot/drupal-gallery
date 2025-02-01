@@ -62,8 +62,8 @@ function updatePagination() {
         }
     }
 
-    document.getElementById('prevPage').disabled = currentPage === 1;
-    document.getElementById('nextPage').disabled = currentPage === totalPages;
+    document.getElementById('prevPage').parentElement.classList.toggle('disabled', currentPage === 1);
+    document.getElementById('nextPage').parentElement.classList.toggle('disabled', currentPage === totalPages);
 }
 
 function prevPage() {

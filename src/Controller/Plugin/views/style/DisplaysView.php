@@ -109,3 +109,4 @@ class DisplaysView extends StylePluginBase {
     ];
   }
 }
+?>
