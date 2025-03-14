@@ -34,5 +34,6 @@ function s3_gallery_theme($existing, $type, $theme, $path) {
   ];
 }
 
-// Ensure the module is loaded correctly
-\Drupal::moduleHandler()->loadInclude('s3_gallery', 'inc', 's3_gallery.theme');
+if (\Drupal::hasContainer()) {
+    \Drupal::moduleHandler()->loadInclude('s3_gallery', 'inc', 's3_gallery.theme');
+}
