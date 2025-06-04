@@ -6,6 +6,9 @@ use Drupal\Core\Controller\ControllerBase;
 use Aws\S3\S3Client;
 use Drupal\Core\Site\Settings;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Provides route responses for the S3 Gallery module.
@@ -43,6 +46,13 @@ class GalleryController extends ControllerBase {
    *   A renderable array.
    */
   public function mainPage() {
+    // Require user to be logged in
+    if (\Drupal::currentUser()->isAnonymous()) {
+      return [
+        '#markup' => t('Access denied. Please log in to view this page.'),
+        '#cache' => ['max-age' => 0],
+      ];
+    }
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -138,6 +148,13 @@ class GalleryController extends ControllerBase {
    *   A renderable array.
    */
   public function myPage($prefix = '') {
+    // Require user to be logged in
+    if (\Drupal::currentUser()->isAnonymous()) {
+      return [
+        '#markup' => t('Access denied. Please log in to view this page.'),
+        '#cache' => ['max-age' => 0],
+      ];
+    }
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -274,7 +291,13 @@ private function photoPage($s3, $bucket, $prefix) {
       if (substr($url, -1) !== '/') {
         $output[] = $url;
       }
-    }
+
+
+
+
+
+
+}}  return $images;  }    }    }
   }
   return $output;
 }

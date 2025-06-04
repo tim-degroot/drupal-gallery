@@ -32,6 +32,13 @@ class TentamenbankController extends ControllerBase {
    *   A renderable array.
    */
   public function mainPage() {
+    // Require user to be logged in
+    if (\Drupal::currentUser()->isAnonymous()) {
+      return [
+        '#markup' => t('Access denied. Please log in to view this page.'),
+        '#cache' => ['max-age' => 0],
+      ];
+    }
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -83,6 +90,13 @@ class TentamenbankController extends ControllerBase {
    *   A renderable array.
    */
   public function myPage($study = '', $subject = '') {
+    // Require user to be logged in
+    if (\Drupal::currentUser()->isAnonymous()) {
+      return [
+        '#markup' => t('Access denied. Please log in to view this page.'),
+        '#cache' => ['max-age' => 0],
+      ];
+    }
     try {
       // Retrieve AWS S3 configuration from settings.php
       $config = Settings::get('aws_s3');
@@ -198,5 +212,4 @@ class TentamenbankController extends ControllerBase {
 
   return $exams;
   }
-}
 }
